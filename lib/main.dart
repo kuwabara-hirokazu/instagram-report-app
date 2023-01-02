@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'InstaRepo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -39,14 +39,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,19 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'Home',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            ElevatedButton(
+                onPressed: () => const DetailRoute().go(context),
+                child: const Text('遷移'))
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => const DetailRoute().go(context),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
