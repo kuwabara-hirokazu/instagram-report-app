@@ -34,7 +34,7 @@
   "git.autofetch": true,
   "explorer.confirmDragAndDrop": false,
   "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.expand": true,
+  "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
     "pubspec.yaml": ".flutter-plugins, .packages, .dart_tool, .flutter-plugins-dependencies, .metadata, template.iml, .packages, pubspec.lock, build.yaml, analysis_options.yaml, all_lint_rules.yaml, flutter_launcher_icons-*.yaml, flutter_native_splash.yaml, lefthook.yaml, Makefile",
     "firebase.json": ".firebaserc, firestore.rules, firestore.indexes.json,storage.rules, remoteconfig.template.json",
