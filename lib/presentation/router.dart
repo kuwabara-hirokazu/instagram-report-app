@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:instagram_report_app/detail.dart';
+import 'package:instagram_report_app/presentation/page/detail.dart';
 import 'package:instagram_report_app/presentation/page/home.dart';
 
 part 'router.g.dart';
@@ -20,7 +20,7 @@ class HomeRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const MyHomePage(title: 'Home');
+    return const HomePage(title: 'Home');
   }
 }
 
