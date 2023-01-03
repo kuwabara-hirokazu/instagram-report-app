@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../entity/insight_media.dart';
+
 final insightReportsProvider = FutureProvider((ref) async {
   final repository = ref.watch(insightRepositoryProvider);
   return repository.getInsightReports();
@@ -10,5 +12,5 @@ final insightRepositoryProvider = Provider<InsightRepository>(
 );
 
 abstract class InsightRepository {
-  Future<void> getInsightReports();
+  Future<List<InsightMedia>> getInsightReports();
 }
