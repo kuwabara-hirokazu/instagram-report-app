@@ -12,13 +12,18 @@ class InsightRepositoryImpl implements InsightRepository {
 
   final FirebaseFirestore firestore;
 
+  static const insightCollectionName = 'insight';
+
   @override
   Future<List<InsightMedia>> getInsightReports() async {
-    final query =
-        firestore.collection('insight').withInsightMediaDocumentConverter();
+    final query = firestore
+        .collection(insightCollectionName)
+        .withInsightMediaDocumentConverter()
+        .orderBy(InsightMediaDocument.field.postedOrder, descending: true);
     final snapshot = await query.get();
-    final insightMedia = snapshot.toInsightMediaList();
-    return insightMedia;
+    final insightMediaList = snapshot.toInsightMediaList();
+    logger.i('media取得数: ${insightMediaList.length}');
+    return insightMediaList;
   }
 }
 
