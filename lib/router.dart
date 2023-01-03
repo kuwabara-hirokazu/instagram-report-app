@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:instagram_report_app/detail.dart';
-import 'package:instagram_report_app/main.dart';
+import 'package:instagram_report_app/presentation/page/home.dart';
 
 part 'router.g.dart';
 
