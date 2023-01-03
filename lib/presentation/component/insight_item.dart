@@ -18,22 +18,55 @@ class InsightItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Text('保存数'),
-                  Text(insight.saveCount.toString()),
+                  const Text('いいね'),
+                  const SizedBox(width: 4),
+                  Text(insight.likeCount.toString()),
                 ],
               ),
               Row(
                 children: [
+                  const Text('コメント'),
+                  const SizedBox(width: 4),
+                  Text(insight.commentsCount.toString()),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text('保存'),
+                  const SizedBox(width: 4),
+                  Text(insight.saveCount.toString()),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
                   const Text('impression'),
+                  const SizedBox(width: 4),
                   Text(insight.impression.toString()),
                 ],
               ),
               Row(
                 children: [
-                  const Text('保存率'),
-                  Text(insight.saveRate.toString()),
+                  const Text('reach'),
+                  const SizedBox(width: 4),
+                  Text(insight.reach.toString()),
                 ],
               ),
+              Row(
+                children: [
+                  const Text('保存率'),
+                  const SizedBox(width: 4),
+                  Text(insight.saveRate
+                      .toString()
+                      .substring(0, 4)), // 稀に小数第三位以下が返ってくるため。
+                ],
+              ),
+              Text(insight.foodType),
             ],
           ),
         ]));
