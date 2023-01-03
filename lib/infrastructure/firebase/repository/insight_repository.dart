@@ -27,7 +27,7 @@ class InsightRepositoryImpl implements InsightRepository {
   }
 }
 
-extension _CollectionRefferenceEx on CollectionReference<Map<String, dynamic>> {
+extension _CollectionReferenceEx on CollectionReference<Map<String, dynamic>> {
   /// InsightMediaDocumentへ変換するWithConverter
   CollectionReference<InsightMediaDocument>
       withInsightMediaDocumentConverter() =>
