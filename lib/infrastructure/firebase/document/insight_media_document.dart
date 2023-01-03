@@ -10,9 +10,7 @@ class InsightMediaDocument with _$InsightMediaDocument {
   const factory InsightMediaDocument({
     required int postedOrder,
     @TimestampConverter() required DateTime timestamp,
-    required String id,
     required String caption,
-    required String title,
     required String mediaType,
     required String mediaUrl,
     required String permalink,

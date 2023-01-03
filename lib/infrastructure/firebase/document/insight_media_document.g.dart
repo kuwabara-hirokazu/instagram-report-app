@@ -12,9 +12,7 @@ _$_InsightMediaDocument _$$_InsightMediaDocumentFromJson(
       postedOrder: json['postedOrder'] as int,
       timestamp:
           const TimestampConverter().fromJson(json['timestamp'] as Object),
-      id: json['id'] as String,
       caption: json['caption'] as String,
-      title: json['title'] as String,
       mediaType: json['mediaType'] as String,
       mediaUrl: json['mediaUrl'] as String,
       permalink: json['permalink'] as String,
@@ -32,9 +30,7 @@ Map<String, dynamic> _$$_InsightMediaDocumentToJson(
     <String, dynamic>{
       'postedOrder': instance.postedOrder,
       'timestamp': const TimestampConverter().toJson(instance.timestamp),
-      'id': instance.id,
       'caption': instance.caption,
-      'title': instance.title,
       'mediaType': instance.mediaType,
       'mediaUrl': instance.mediaUrl,
       'permalink': instance.permalink,

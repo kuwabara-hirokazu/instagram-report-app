@@ -14,10 +14,8 @@ class InsightRepositoryImpl implements InsightRepository {
 
   @override
   Future<List<InsightMedia>> getInsightReports() async {
-    final query = firestore
-        .collection('insight')
-        .withInsightMediaDocumentConverter()
-        .limit(5);
+    final query =
+        firestore.collection('insight').withInsightMediaDocumentConverter();
     final snapshot = await query.get();
     final insightMedia = snapshot.toInsightMediaList();
     return insightMedia;

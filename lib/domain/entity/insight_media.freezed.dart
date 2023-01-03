@@ -16,18 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$InsightMedia {
-  int get postedOrder => throw _privateConstructorUsedError;
-  DateTime get postedDate => throw _privateConstructorUsedError;
-  String get caption => throw _privateConstructorUsedError;
-  String get mediaType => throw _privateConstructorUsedError;
-  String get mediaUrl => throw _privateConstructorUsedError;
-  String get permalink => throw _privateConstructorUsedError;
-  int get likeCount => throw _privateConstructorUsedError;
-  int get commentsCount => throw _privateConstructorUsedError;
-  int get saveCount => throw _privateConstructorUsedError;
-  int get impression => throw _privateConstructorUsedError;
-  int get reach => throw _privateConstructorUsedError;
-  double get saveRate => throw _privateConstructorUsedError;
+// 投稿順番号
+  int get postedOrder => throw _privateConstructorUsedError; // 投稿日
+  DateTime get postedDate => throw _privateConstructorUsedError; // 投稿本文
+  String get caption =>
+      throw _privateConstructorUsedError; // 投稿種類（Feed or Reel）
+  String get mediaType => throw _privateConstructorUsedError; // 画像URL
+  String get mediaUrl => throw _privateConstructorUsedError; // 投稿URL
+  String get permalink => throw _privateConstructorUsedError; // いいね数
+  int get likeCount => throw _privateConstructorUsedError; // コメント数
+  int get commentsCount => throw _privateConstructorUsedError; // 保存数
+  int get saveCount => throw _privateConstructorUsedError; // インプレッション数
+  int get impression => throw _privateConstructorUsedError; // リーチ数
+  int get reach => throw _privateConstructorUsedError; // 保存率
+  double get saveRate => throw _privateConstructorUsedError; // フードジャンル
   String get foodType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -265,30 +267,43 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
       required this.saveRate,
       required this.foodType});
 
+// 投稿順番号
   @override
   final int postedOrder;
+// 投稿日
   @override
   final DateTime postedDate;
+// 投稿本文
   @override
   final String caption;
+// 投稿種類（Feed or Reel）
   @override
   final String mediaType;
+// 画像URL
   @override
   final String mediaUrl;
+// 投稿URL
   @override
   final String permalink;
+// いいね数
   @override
   final int likeCount;
+// コメント数
   @override
   final int commentsCount;
+// 保存数
   @override
   final int saveCount;
+// インプレッション数
   @override
   final int impression;
+// リーチ数
   @override
   final int reach;
+// 保存率
   @override
   final double saveRate;
+// フードジャンル
   @override
   final String foodType;
 
@@ -388,31 +403,31 @@ abstract class _InsightMedia implements InsightMedia {
       required final double saveRate,
       required final String foodType}) = _$_InsightMedia;
 
-  @override
+  @override // 投稿順番号
   int get postedOrder;
-  @override
+  @override // 投稿日
   DateTime get postedDate;
-  @override
+  @override // 投稿本文
   String get caption;
-  @override
+  @override // 投稿種類（Feed or Reel）
   String get mediaType;
-  @override
+  @override // 画像URL
   String get mediaUrl;
-  @override
+  @override // 投稿URL
   String get permalink;
-  @override
+  @override // いいね数
   int get likeCount;
-  @override
+  @override // コメント数
   int get commentsCount;
-  @override
+  @override // 保存数
   int get saveCount;
-  @override
+  @override // インプレッション数
   int get impression;
-  @override
+  @override // リーチ数
   int get reach;
-  @override
+  @override // 保存率
   double get saveRate;
-  @override
+  @override // フードジャンル
   String get foodType;
   @override
   @JsonKey(ignore: true)

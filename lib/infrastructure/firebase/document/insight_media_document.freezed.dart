@@ -23,9 +23,7 @@ mixin _$InsightMediaDocument {
   int get postedOrder => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get timestamp => throw _privateConstructorUsedError;
-  String get id => throw _privateConstructorUsedError;
   String get caption => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
   String get mediaType => throw _privateConstructorUsedError;
   String get mediaUrl => throw _privateConstructorUsedError;
   String get permalink => throw _privateConstructorUsedError;
@@ -52,9 +50,7 @@ abstract class $InsightMediaDocumentCopyWith<$Res> {
   $Res call(
       {int postedOrder,
       @TimestampConverter() DateTime timestamp,
-      String id,
       String caption,
-      String title,
       String mediaType,
       String mediaUrl,
       String permalink,
@@ -83,9 +79,7 @@ class _$InsightMediaDocumentCopyWithImpl<$Res,
   $Res call({
     Object? postedOrder = null,
     Object? timestamp = null,
-    Object? id = null,
     Object? caption = null,
-    Object? title = null,
     Object? mediaType = null,
     Object? mediaUrl = null,
     Object? permalink = null,
@@ -106,17 +100,9 @@ class _$InsightMediaDocumentCopyWithImpl<$Res,
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       caption: null == caption
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
               as String,
       mediaType: null == mediaType
           ? _value.mediaType
@@ -173,9 +159,7 @@ abstract class _$$_InsightMediaDocumentCopyWith<$Res>
   $Res call(
       {int postedOrder,
       @TimestampConverter() DateTime timestamp,
-      String id,
       String caption,
-      String title,
       String mediaType,
       String mediaUrl,
       String permalink,
@@ -201,9 +185,7 @@ class __$$_InsightMediaDocumentCopyWithImpl<$Res>
   $Res call({
     Object? postedOrder = null,
     Object? timestamp = null,
-    Object? id = null,
     Object? caption = null,
-    Object? title = null,
     Object? mediaType = null,
     Object? mediaUrl = null,
     Object? permalink = null,
@@ -224,17 +206,9 @@ class __$$_InsightMediaDocumentCopyWithImpl<$Res>
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       caption: null == caption
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
               as String,
       mediaType: null == mediaType
           ? _value.mediaType
@@ -288,9 +262,7 @@ class _$_InsightMediaDocument
   const _$_InsightMediaDocument(
       {required this.postedOrder,
       @TimestampConverter() required this.timestamp,
-      required this.id,
       required this.caption,
-      required this.title,
       required this.mediaType,
       required this.mediaUrl,
       required this.permalink,
@@ -311,11 +283,7 @@ class _$_InsightMediaDocument
   @TimestampConverter()
   final DateTime timestamp;
   @override
-  final String id;
-  @override
   final String caption;
-  @override
-  final String title;
   @override
   final String mediaType;
   @override
@@ -339,7 +307,7 @@ class _$_InsightMediaDocument
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InsightMediaDocument(postedOrder: $postedOrder, timestamp: $timestamp, id: $id, caption: $caption, title: $title, mediaType: $mediaType, mediaUrl: $mediaUrl, permalink: $permalink, likeCount: $likeCount, commentsCount: $commentsCount, saved: $saved, impression: $impression, reach: $reach, saveRate: $saveRate, foodType: $foodType)';
+    return 'InsightMediaDocument(postedOrder: $postedOrder, timestamp: $timestamp, caption: $caption, mediaType: $mediaType, mediaUrl: $mediaUrl, permalink: $permalink, likeCount: $likeCount, commentsCount: $commentsCount, saved: $saved, impression: $impression, reach: $reach, saveRate: $saveRate, foodType: $foodType)';
   }
 
   @override
@@ -349,9 +317,7 @@ class _$_InsightMediaDocument
       ..add(DiagnosticsProperty('type', 'InsightMediaDocument'))
       ..add(DiagnosticsProperty('postedOrder', postedOrder))
       ..add(DiagnosticsProperty('timestamp', timestamp))
-      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('caption', caption))
-      ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('mediaType', mediaType))
       ..add(DiagnosticsProperty('mediaUrl', mediaUrl))
       ..add(DiagnosticsProperty('permalink', permalink))
@@ -373,9 +339,7 @@ class _$_InsightMediaDocument
                 other.postedOrder == postedOrder) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.caption, caption) || other.caption == caption) &&
-            (identical(other.title, title) || other.title == title) &&
             (identical(other.mediaType, mediaType) ||
                 other.mediaType == mediaType) &&
             (identical(other.mediaUrl, mediaUrl) ||
@@ -402,9 +366,7 @@ class _$_InsightMediaDocument
       runtimeType,
       postedOrder,
       timestamp,
-      id,
       caption,
-      title,
       mediaType,
       mediaUrl,
       permalink,
@@ -435,9 +397,7 @@ abstract class _InsightMediaDocument implements InsightMediaDocument {
   const factory _InsightMediaDocument(
       {required final int postedOrder,
       @TimestampConverter() required final DateTime timestamp,
-      required final String id,
       required final String caption,
-      required final String title,
       required final String mediaType,
       required final String mediaUrl,
       required final String permalink,
@@ -458,11 +418,7 @@ abstract class _InsightMediaDocument implements InsightMediaDocument {
   @TimestampConverter()
   DateTime get timestamp;
   @override
-  String get id;
-  @override
   String get caption;
-  @override
-  String get title;
   @override
   String get mediaType;
   @override
