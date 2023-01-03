@@ -5,15 +5,13 @@ import 'package:instagram_report_app/presentation/component/async_value_handler.
 import 'package:instagram_report_app/presentation/router.dart';
 
 class HomePage extends ConsumerWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: const Text('ホーム'),
         ),
         body: AsyncValueHandler(
           value: ref.watch(insightReportsProvider),
