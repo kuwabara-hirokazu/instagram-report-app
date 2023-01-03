@@ -10,11 +10,14 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeData = ref.watch(themeProvider);
+    final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
       title: 'InstaRepo',
       theme: themeData,
-      routerConfig: router,
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
     );
   }
 }

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:instagram_report_app/presentation/page/detail.dart';
 import 'package:instagram_report_app/presentation/page/home.dart';
 
 part 'router.g.dart';
 
-final GoRouter router = GoRouter(routes: $appRoutes);
+final routerProvider = Provider<GoRouter>(
+  (ref) => GoRouter(
+    // 初期表示するパス
+    initialLocation: const HomeRoute().location,
+    // ルート
+    routes: $appRoutes,
+  ),
+);
 
 @TypedGoRoute<HomeRoute>(
   path: '/',
