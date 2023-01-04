@@ -30,7 +30,7 @@ mixin _$InsightMedia {
   int get impression => throw _privateConstructorUsedError; // リーチ数
   int get reach => throw _privateConstructorUsedError; // 保存率
   double get saveRate => throw _privateConstructorUsedError; // フードジャンル
-  String get foodType => throw _privateConstructorUsedError;
+  FoodType get foodType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $InsightMediaCopyWith<InsightMedia> get copyWith =>
@@ -56,7 +56,7 @@ abstract class $InsightMediaCopyWith<$Res> {
       int impression,
       int reach,
       double saveRate,
-      String foodType});
+      FoodType foodType});
 }
 
 /// @nodoc
@@ -138,7 +138,7 @@ class _$InsightMediaCopyWithImpl<$Res, $Val extends InsightMedia>
       foodType: null == foodType
           ? _value.foodType
           : foodType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as FoodType,
     ) as $Val);
   }
 }
@@ -164,7 +164,7 @@ abstract class _$$_InsightMediaCopyWith<$Res>
       int impression,
       int reach,
       double saveRate,
-      String foodType});
+      FoodType foodType});
 }
 
 /// @nodoc
@@ -244,7 +244,7 @@ class __$$_InsightMediaCopyWithImpl<$Res>
       foodType: null == foodType
           ? _value.foodType
           : foodType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as FoodType,
     ));
   }
 }
@@ -305,7 +305,7 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
   final double saveRate;
 // フードジャンル
   @override
-  final String foodType;
+  final FoodType foodType;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -401,7 +401,7 @@ abstract class _InsightMedia implements InsightMedia {
       required final int impression,
       required final int reach,
       required final double saveRate,
-      required final String foodType}) = _$_InsightMedia;
+      required final FoodType foodType}) = _$_InsightMedia;
 
   @override // 投稿順番号
   int get postedOrder;
@@ -428,7 +428,7 @@ abstract class _InsightMedia implements InsightMedia {
   @override // 保存率
   double get saveRate;
   @override // フードジャンル
-  String get foodType;
+  FoodType get foodType;
   @override
   @JsonKey(ignore: true)
   _$$_InsightMediaCopyWith<_$_InsightMedia> get copyWith =>

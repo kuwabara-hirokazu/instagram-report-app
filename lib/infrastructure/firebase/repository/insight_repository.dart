@@ -63,7 +63,7 @@ extension _InsightMediaDocumentEx on InsightMediaDocument {
       impression: impression,
       reach: reach,
       saveRate: saveRate,
-      foodType: foodType,
+      foodType: FoodType.fromFood(foodType),
     );
   }
 }
