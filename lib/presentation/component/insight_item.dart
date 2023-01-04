@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_report_app/domain/entity/insight_media.dart';
 import 'package:instagram_report_app/util/extension.dart';
-
-import '../../gen/assets.gen.dart';
+import 'media_thumbnail.dart';
 
 class InsightItem extends StatelessWidget {
   const InsightItem({super.key, required this.insight});
@@ -14,7 +13,11 @@ class InsightItem extends StatelessWidget {
     return Card(
         margin: const EdgeInsets.all(8),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          SizedBox(width: 88, child: Image.network(insight.mediaUrl)),
+          SizedBox(
+              width: 88,
+              child: MediaThumbnail(
+                imageUrl: insight.mediaUrl,
+              )),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
