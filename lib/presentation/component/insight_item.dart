@@ -80,8 +80,7 @@ class InsightItem extends StatelessWidget {
                     size: 24.0,
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                      '${insight.saveRate.toString().substring(0, 4)}%'), // 稀に小数第三位以下が返ってくるため。
+                  Text(insight.saveRate),
                 ],
               ),
             ],

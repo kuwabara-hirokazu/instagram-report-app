@@ -29,7 +29,7 @@ mixin _$InsightMedia {
   int get saveCount => throw _privateConstructorUsedError; // インプレッション数
   int get impression => throw _privateConstructorUsedError; // リーチ数
   int get reach => throw _privateConstructorUsedError; // 保存率
-  double get saveRate => throw _privateConstructorUsedError; // フードジャンル
+  String get saveRate => throw _privateConstructorUsedError; // フードジャンル
   FoodType get foodType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -55,7 +55,7 @@ abstract class $InsightMediaCopyWith<$Res> {
       int saveCount,
       int impression,
       int reach,
-      double saveRate,
+      String saveRate,
       FoodType foodType});
 }
 
@@ -134,7 +134,7 @@ class _$InsightMediaCopyWithImpl<$Res, $Val extends InsightMedia>
       saveRate: null == saveRate
           ? _value.saveRate
           : saveRate // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       foodType: null == foodType
           ? _value.foodType
           : foodType // ignore: cast_nullable_to_non_nullable
@@ -163,7 +163,7 @@ abstract class _$$_InsightMediaCopyWith<$Res>
       int saveCount,
       int impression,
       int reach,
-      double saveRate,
+      String saveRate,
       FoodType foodType});
 }
 
@@ -240,7 +240,7 @@ class __$$_InsightMediaCopyWithImpl<$Res>
       saveRate: null == saveRate
           ? _value.saveRate
           : saveRate // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       foodType: null == foodType
           ? _value.foodType
           : foodType // ignore: cast_nullable_to_non_nullable
@@ -302,7 +302,7 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
   final int reach;
 // 保存率
   @override
-  final double saveRate;
+  final String saveRate;
 // フードジャンル
   @override
   final FoodType foodType;
@@ -400,7 +400,7 @@ abstract class _InsightMedia implements InsightMedia {
       required final int saveCount,
       required final int impression,
       required final int reach,
-      required final double saveRate,
+      required final String saveRate,
       required final FoodType foodType}) = _$_InsightMedia;
 
   @override // 投稿順番号
@@ -426,7 +426,7 @@ abstract class _InsightMedia implements InsightMedia {
   @override // リーチ数
   int get reach;
   @override // 保存率
-  double get saveRate;
+  String get saveRate;
   @override // フードジャンル
   FoodType get foodType;
   @override
