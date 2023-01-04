@@ -22,7 +22,7 @@ class InsightItem extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.favorite_border,
-                    size: 24.0,
+                    size: 28.0,
                   ),
                   const SizedBox(width: 4),
                   Text(insight.likeCount.toString()),
@@ -32,7 +32,7 @@ class InsightItem extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.chat_bubble_outline,
-                    size: 24.0,
+                    size: 28.0,
                   ),
                   const SizedBox(width: 4),
                   Text(insight.commentsCount.toString()),
@@ -42,7 +42,7 @@ class InsightItem extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.bookmark_border,
-                    size: 24.0,
+                    size: 28.0,
                   ),
                   const SizedBox(width: 4),
                   Text(insight.saveCount.toString()),
@@ -57,7 +57,7 @@ class InsightItem extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.visibility_outlined,
-                    size: 24.0,
+                    size: 28.0,
                   ),
                   const SizedBox(width: 4),
                   Text(insight.impression.toString()),
@@ -67,7 +67,7 @@ class InsightItem extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.perm_identity,
-                    size: 24.0,
+                    size: 28.0,
                   ),
                   const SizedBox(width: 4),
                   Text(insight.reach.toString()),
@@ -77,7 +77,7 @@ class InsightItem extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.bookmark_added_outlined,
-                    size: 24.0,
+                    size: 28.0,
                   ),
                   const SizedBox(width: 4),
                   Text(insight.saveRate),
@@ -92,8 +92,8 @@ class InsightItem extends StatelessWidget {
                 height: 40,
                 width: 40,
                 child: CircleAvatar(
-                  backgroundColor: Colors.pink,
-                  foregroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.background,
                   child: Text(
                     insight.postedOrder.toString(),
                     style: const TextStyle(fontWeight: FontWeight.bold),
