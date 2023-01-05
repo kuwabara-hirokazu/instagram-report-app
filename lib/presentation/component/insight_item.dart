@@ -32,7 +32,7 @@ class InsightItem extends StatelessWidget {
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
-                  Text(insight.likeCount.toString()),
+                  Text(insight.likeCount.toFormatThousandSeparator()),
                 ],
               ),
               Row(
@@ -42,7 +42,7 @@ class InsightItem extends StatelessWidget {
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
-                  Text(insight.commentsCount.toString()),
+                  Text(insight.commentsCount.toFormatThousandSeparator()),
                 ],
               ),
               Row(
@@ -52,7 +52,7 @@ class InsightItem extends StatelessWidget {
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
-                  Text(insight.saveCount.toString()),
+                  Text(insight.saveCount.toFormatThousandSeparator()),
                 ],
               ),
             ],
@@ -69,7 +69,7 @@ class InsightItem extends StatelessWidget {
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
-                  Text(insight.impression.toString()),
+                  Text(insight.impression.toFormatThousandSeparator()),
                 ],
               ),
               Row(
@@ -79,7 +79,7 @@ class InsightItem extends StatelessWidget {
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
-                  Text(insight.reach.toString()),
+                  Text(insight.reach.toFormatThousandSeparator()),
                 ],
               ),
               Row(
