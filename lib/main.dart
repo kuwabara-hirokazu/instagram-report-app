@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_report_app/domain/repository/insight_repository.dart';
 import 'package:instagram_report_app/infrastructure/firebase/firebase_provider.dart';
 import 'package:instagram_report_app/infrastructure/firebase/repository/insight_repository.dart';
-import 'package:instagram_report_app/router.dart';
+import 'package:instagram_report_app/presentation/app.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -21,20 +21,5 @@ void main() async {
           firestore: ref.watch(firebaseFirestoreProvider));
       return repository;
     })
-  ], child: const MyApp()));
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'InstaRepo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      routerConfig: router,
-    );
-  }
+  ], child: const App()));
 }

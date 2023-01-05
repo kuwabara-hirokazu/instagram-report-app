@@ -19,9 +19,8 @@ mixin _$InsightMedia {
 // 投稿順番号
   int get postedOrder => throw _privateConstructorUsedError; // 投稿日
   DateTime get postedDate => throw _privateConstructorUsedError; // 投稿本文
-  String get caption =>
-      throw _privateConstructorUsedError; // 投稿種類（Feed or Reel）
-  String get mediaType => throw _privateConstructorUsedError; // 画像URL
+  String get caption => throw _privateConstructorUsedError; // フィード or リール
+  bool get isReel => throw _privateConstructorUsedError; // 画像URL
   String get mediaUrl => throw _privateConstructorUsedError; // 投稿URL
   String get permalink => throw _privateConstructorUsedError; // いいね数
   int get likeCount => throw _privateConstructorUsedError; // コメント数
@@ -30,7 +29,7 @@ mixin _$InsightMedia {
   int get impression => throw _privateConstructorUsedError; // リーチ数
   int get reach => throw _privateConstructorUsedError; // 保存率
   double get saveRate => throw _privateConstructorUsedError; // フードジャンル
-  String get foodType => throw _privateConstructorUsedError;
+  FoodType get foodType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $InsightMediaCopyWith<InsightMedia> get copyWith =>
@@ -47,7 +46,7 @@ abstract class $InsightMediaCopyWith<$Res> {
       {int postedOrder,
       DateTime postedDate,
       String caption,
-      String mediaType,
+      bool isReel,
       String mediaUrl,
       String permalink,
       int likeCount,
@@ -56,7 +55,7 @@ abstract class $InsightMediaCopyWith<$Res> {
       int impression,
       int reach,
       double saveRate,
-      String foodType});
+      FoodType foodType});
 }
 
 /// @nodoc
@@ -75,7 +74,7 @@ class _$InsightMediaCopyWithImpl<$Res, $Val extends InsightMedia>
     Object? postedOrder = null,
     Object? postedDate = null,
     Object? caption = null,
-    Object? mediaType = null,
+    Object? isReel = null,
     Object? mediaUrl = null,
     Object? permalink = null,
     Object? likeCount = null,
@@ -99,10 +98,10 @@ class _$InsightMediaCopyWithImpl<$Res, $Val extends InsightMedia>
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String,
-      mediaType: null == mediaType
-          ? _value.mediaType
-          : mediaType // ignore: cast_nullable_to_non_nullable
-              as String,
+      isReel: null == isReel
+          ? _value.isReel
+          : isReel // ignore: cast_nullable_to_non_nullable
+              as bool,
       mediaUrl: null == mediaUrl
           ? _value.mediaUrl
           : mediaUrl // ignore: cast_nullable_to_non_nullable
@@ -138,7 +137,7 @@ class _$InsightMediaCopyWithImpl<$Res, $Val extends InsightMedia>
       foodType: null == foodType
           ? _value.foodType
           : foodType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as FoodType,
     ) as $Val);
   }
 }
@@ -155,7 +154,7 @@ abstract class _$$_InsightMediaCopyWith<$Res>
       {int postedOrder,
       DateTime postedDate,
       String caption,
-      String mediaType,
+      bool isReel,
       String mediaUrl,
       String permalink,
       int likeCount,
@@ -164,7 +163,7 @@ abstract class _$$_InsightMediaCopyWith<$Res>
       int impression,
       int reach,
       double saveRate,
-      String foodType});
+      FoodType foodType});
 }
 
 /// @nodoc
@@ -181,7 +180,7 @@ class __$$_InsightMediaCopyWithImpl<$Res>
     Object? postedOrder = null,
     Object? postedDate = null,
     Object? caption = null,
-    Object? mediaType = null,
+    Object? isReel = null,
     Object? mediaUrl = null,
     Object? permalink = null,
     Object? likeCount = null,
@@ -205,10 +204,10 @@ class __$$_InsightMediaCopyWithImpl<$Res>
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String,
-      mediaType: null == mediaType
-          ? _value.mediaType
-          : mediaType // ignore: cast_nullable_to_non_nullable
-              as String,
+      isReel: null == isReel
+          ? _value.isReel
+          : isReel // ignore: cast_nullable_to_non_nullable
+              as bool,
       mediaUrl: null == mediaUrl
           ? _value.mediaUrl
           : mediaUrl // ignore: cast_nullable_to_non_nullable
@@ -244,7 +243,7 @@ class __$$_InsightMediaCopyWithImpl<$Res>
       foodType: null == foodType
           ? _value.foodType
           : foodType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as FoodType,
     ));
   }
 }
@@ -256,7 +255,7 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
       {required this.postedOrder,
       required this.postedDate,
       required this.caption,
-      required this.mediaType,
+      required this.isReel,
       required this.mediaUrl,
       required this.permalink,
       required this.likeCount,
@@ -276,9 +275,9 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
 // 投稿本文
   @override
   final String caption;
-// 投稿種類（Feed or Reel）
+// フィード or リール
   @override
-  final String mediaType;
+  final bool isReel;
 // 画像URL
   @override
   final String mediaUrl;
@@ -305,11 +304,11 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
   final double saveRate;
 // フードジャンル
   @override
-  final String foodType;
+  final FoodType foodType;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InsightMedia(postedOrder: $postedOrder, postedDate: $postedDate, caption: $caption, mediaType: $mediaType, mediaUrl: $mediaUrl, permalink: $permalink, likeCount: $likeCount, commentsCount: $commentsCount, saveCount: $saveCount, impression: $impression, reach: $reach, saveRate: $saveRate, foodType: $foodType)';
+    return 'InsightMedia(postedOrder: $postedOrder, postedDate: $postedDate, caption: $caption, isReel: $isReel, mediaUrl: $mediaUrl, permalink: $permalink, likeCount: $likeCount, commentsCount: $commentsCount, saveCount: $saveCount, impression: $impression, reach: $reach, saveRate: $saveRate, foodType: $foodType)';
   }
 
   @override
@@ -320,7 +319,7 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
       ..add(DiagnosticsProperty('postedOrder', postedOrder))
       ..add(DiagnosticsProperty('postedDate', postedDate))
       ..add(DiagnosticsProperty('caption', caption))
-      ..add(DiagnosticsProperty('mediaType', mediaType))
+      ..add(DiagnosticsProperty('isReel', isReel))
       ..add(DiagnosticsProperty('mediaUrl', mediaUrl))
       ..add(DiagnosticsProperty('permalink', permalink))
       ..add(DiagnosticsProperty('likeCount', likeCount))
@@ -342,8 +341,7 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
             (identical(other.postedDate, postedDate) ||
                 other.postedDate == postedDate) &&
             (identical(other.caption, caption) || other.caption == caption) &&
-            (identical(other.mediaType, mediaType) ||
-                other.mediaType == mediaType) &&
+            (identical(other.isReel, isReel) || other.isReel == isReel) &&
             (identical(other.mediaUrl, mediaUrl) ||
                 other.mediaUrl == mediaUrl) &&
             (identical(other.permalink, permalink) ||
@@ -369,7 +367,7 @@ class _$_InsightMedia with DiagnosticableTreeMixin implements _InsightMedia {
       postedOrder,
       postedDate,
       caption,
-      mediaType,
+      isReel,
       mediaUrl,
       permalink,
       likeCount,
@@ -392,7 +390,7 @@ abstract class _InsightMedia implements InsightMedia {
       {required final int postedOrder,
       required final DateTime postedDate,
       required final String caption,
-      required final String mediaType,
+      required final bool isReel,
       required final String mediaUrl,
       required final String permalink,
       required final int likeCount,
@@ -401,7 +399,7 @@ abstract class _InsightMedia implements InsightMedia {
       required final int impression,
       required final int reach,
       required final double saveRate,
-      required final String foodType}) = _$_InsightMedia;
+      required final FoodType foodType}) = _$_InsightMedia;
 
   @override // 投稿順番号
   int get postedOrder;
@@ -409,8 +407,8 @@ abstract class _InsightMedia implements InsightMedia {
   DateTime get postedDate;
   @override // 投稿本文
   String get caption;
-  @override // 投稿種類（Feed or Reel）
-  String get mediaType;
+  @override // フィード or リール
+  bool get isReel;
   @override // 画像URL
   String get mediaUrl;
   @override // 投稿URL
@@ -428,7 +426,7 @@ abstract class _InsightMedia implements InsightMedia {
   @override // 保存率
   double get saveRate;
   @override // フードジャンル
-  String get foodType;
+  FoodType get foodType;
   @override
   @JsonKey(ignore: true)
   _$$_InsightMediaCopyWith<_$_InsightMedia> get copyWith =>

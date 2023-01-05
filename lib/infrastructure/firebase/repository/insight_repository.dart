@@ -50,11 +50,16 @@ extension _QuerySnapshotEx on QuerySnapshot<InsightMediaDocument> {
 
 extension _InsightMediaDocumentEx on InsightMediaDocument {
   InsightMedia toInsightMedia() {
+    final saveRateSt = saveRate.toString();
+    // 稀に小数第三位以下まで返ってくるため整形する。
+    final rate =
+        saveRateSt.length > 4 ? saveRateSt.substring(0, 4) : saveRateSt;
+
     return InsightMedia(
       postedOrder: postedOrder,
       postedDate: timestamp,
       caption: caption,
-      mediaType: mediaType,
+      isReel: mediaType == 'Reel',
       mediaUrl: mediaUrl,
       permalink: permalink,
       likeCount: likeCount,
@@ -62,8 +67,8 @@ extension _InsightMediaDocumentEx on InsightMediaDocument {
       saveCount: saved,
       impression: impression,
       reach: reach,
-      saveRate: saveRate,
-      foodType: foodType,
+      saveRate: double.parse(rate),
+      foodType: FoodType.fromFood(foodType),
     );
   }
 }

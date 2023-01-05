@@ -16,8 +16,8 @@ class InsightMedia with _$InsightMedia {
     // 投稿本文
     required String caption,
 
-    // 投稿種類（Feed or Reel）
-    required String mediaType,
+    // フィード or リール
+    required bool isReel,
 
     // 画像URL
     required String mediaUrl,
@@ -44,6 +44,25 @@ class InsightMedia with _$InsightMedia {
     required double saveRate,
 
     // フードジャンル
-    required String foodType,
+    required FoodType foodType,
   }) = _InsightMedia;
+}
+
+enum FoodType {
+  meatAndFish,
+  cafe,
+  noodles,
+  unknown;
+
+  factory FoodType.fromFood(String food) {
+    switch (food) {
+      case '肉・寿司':
+        return FoodType.meatAndFish;
+      case 'カフェ・デザート':
+        return FoodType.cafe;
+      case '麺・その他':
+        return FoodType.noodles;
+    }
+    return FoodType.unknown;
+  }
 }
