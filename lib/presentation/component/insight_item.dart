@@ -89,7 +89,7 @@ class InsightItem extends StatelessWidget {
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
-                  Text(insight.saveRate),
+                  Text('${insight.saveRate}%'),
                 ],
               ),
             ],

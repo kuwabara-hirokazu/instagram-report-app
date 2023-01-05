@@ -67,7 +67,7 @@ extension _InsightMediaDocumentEx on InsightMediaDocument {
       saveCount: saved,
       impression: impression,
       reach: reach,
-      saveRate: '$rate%',
+      saveRate: double.parse(rate),
       foodType: FoodType.fromFood(foodType),
     );
   }

@@ -41,7 +41,7 @@ class InsightMedia with _$InsightMedia {
     required int reach,
 
     // 保存率
-    required String saveRate,
+    required double saveRate,
 
     // フードジャンル
     required FoodType foodType,
