@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_report_app/domain/entity/insight_media.dart';
+import 'package:instagram_report_app/gen/assets.gen.dart';
 import 'package:instagram_report_app/util/extension.dart';
 import 'media_thumbnail.dart';
 
@@ -14,10 +15,13 @@ class InsightItem extends StatelessWidget {
         margin: const EdgeInsets.all(8),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           SizedBox(
-              width: 88,
-              child: MediaThumbnail(
-                imageUrl: insight.mediaUrl,
-              )),
+              height: 112,
+              width: 112,
+              child: insight.isReel
+                  ? Assets.images.reel.image()
+                  : MediaThumbnail(
+                      imageUrl: insight.mediaUrl,
+                    )),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,8 +62,10 @@ class InsightItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.visibility_outlined,
+                  Icon(
+                    insight.isReel
+                        ? Icons.play_circle_outline
+                        : Icons.visibility_outlined,
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),

@@ -16,8 +16,8 @@ class InsightMedia with _$InsightMedia {
     // 投稿本文
     required String caption,
 
-    // 投稿種類（Feed or Reel）
-    required String mediaType,
+    // フィード or リール
+    required bool isReel,
 
     // 画像URL
     required String mediaUrl,

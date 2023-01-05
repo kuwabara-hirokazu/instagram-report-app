@@ -23,9 +23,6 @@ class _InsightViewState extends ConsumerState<InsightView> {
           itemCount: insights.length,
           itemBuilder: (context, index) {
             final insight = insights[index];
-            // Todo: filter
-            if (insight.mediaType == 'Reel') return const SizedBox();
-
             return InkWell(
               onTap: () => const DetailRoute().go(context),
               child: InsightItem(insight: insight),

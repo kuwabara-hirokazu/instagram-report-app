@@ -59,7 +59,7 @@ extension _InsightMediaDocumentEx on InsightMediaDocument {
       postedOrder: postedOrder,
       postedDate: timestamp,
       caption: caption,
-      mediaType: mediaType,
+      isReel: mediaType == 'Reel',
       mediaUrl: mediaUrl,
       permalink: permalink,
       likeCount: likeCount,
