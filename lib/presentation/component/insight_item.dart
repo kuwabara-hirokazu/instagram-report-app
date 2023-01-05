@@ -16,11 +16,12 @@ class InsightItem extends StatelessWidget {
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           SizedBox(
               height: 112,
-              width: 112,
+              width: 100,
               child: insight.isReel
                   ? Assets.images.reel.image()
                   : MediaThumbnail(
                       imageUrl: insight.mediaUrl,
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
                     )),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
