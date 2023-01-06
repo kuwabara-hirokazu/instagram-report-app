@@ -11,7 +11,6 @@ class TimestampConverter implements JsonConverter<DateTime, Object> {
 
   @override
   Object toJson(DateTime object) {
-    // こちらから更新することは無いため不要。
-    throw UnimplementedError();
+    return Timestamp.fromDate(object);
   }
 }
