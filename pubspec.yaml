@@ -24,6 +24,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   intl: ^0.18.0
   hexcolor: ^3.0.1
+  fake_cloud_firestore: ^2.1.0
 
 dev_dependencies:
   flutter_test:
