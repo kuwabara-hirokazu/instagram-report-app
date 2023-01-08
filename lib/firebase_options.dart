@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '299133787731',
     projectId: 'instagram-report-firebase',
     storageBucket: 'instagram-report-firebase.appspot.com',
-    iosClientId: '299133787731-rvaeqnahao1feu7cu5dg4vtvaq1bmqmd.apps.googleusercontent.com',
+    iosClientId:
+        '299133787731-rvaeqnahao1feu7cu5dg4vtvaq1bmqmd.apps.googleusercontent.com',
     iosBundleId: 'com.example.instagramReportApp',
   );
 }
