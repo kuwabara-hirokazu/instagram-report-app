@@ -16,9 +16,6 @@ void main() async {
   );
 
   runApp(ProviderScope(overrides: [
-    // Testのため。FirebaseFirestoreのモックを注入
-    firebaseFirestoreProvider.overrideWithValue(FakeFirebaseFirestore()),
-
     // Repositoryの上書き
     insightRepositoryProvider.overrideWith((ref) {
       final repository = InsightRepositoryImpl(
