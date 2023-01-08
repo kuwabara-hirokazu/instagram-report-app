@@ -27,6 +27,11 @@ linter:
 
 # Freezed in combination with json_serializable
 analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - '**/*.freezed.dart'
+    - '**/assets/*.gen.dart'
+    - '**/firebase_options_*.dart'
   errors:
     invalid_annotation_target: ignore
 
