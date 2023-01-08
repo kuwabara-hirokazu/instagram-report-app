@@ -45,6 +45,15 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
+      # コードフォーマットを実行
+      # フォーマットの結果、変更が発生した場合はエラー扱いにする
+      - name: Run Flutter format
+        run: flutter format --set-exit-if-changed .
+
+      # 静的解析を実行
+      - name: Run Flutter analyze
+        run: flutter analyze
+
       # テストを実行
       - name: Run Flutter Test
         run: flutter test
