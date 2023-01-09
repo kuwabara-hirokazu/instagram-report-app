@@ -25,6 +25,8 @@ class InsightRepositoryImpl implements InsightRepository {
         .limit(pageLimit);
     final snapshot = await query.get();
 
+    if (snapshot.docs.isEmpty) return [];
+
     // 最後のDocをキャッシュしておく
     _lastDoc = snapshot.docs.last;
 
@@ -53,6 +55,8 @@ class InsightRepositoryImpl implements InsightRepository {
         .startAfterDocument(lastDoc)
         .limit(pageLimit);
     final snapshot = await query.get();
+
+    if (snapshot.docs.isEmpty) return [];
 
     // 最後のDocを更新
     _lastDoc = snapshot.docs.last;
