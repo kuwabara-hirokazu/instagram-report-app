@@ -2,8 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_report_app/presentation/component/insight_item.dart';
 
-import '../../application/insight_service.dart';
-import '../../domain/repository/insight_repository.dart';
+import '../../application/insight_state_notifier.dart';
 import '../router.dart';
 import 'async_value_handler.dart';
 
@@ -20,14 +19,14 @@ class _InsightViewState extends ConsumerState<InsightView> {
   @override
   void initState() {
     // 初期ページのデータを取得する
-    ref.read(insightServiceProvider).fetchFirstPage();
+    ref.read(insightStateProvider.notifier).fetchFirstPage();
 
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       if (_scrollController.offset ==
           _scrollController.position.maxScrollExtent) {
         // スクロールが最後に達した時、次のデータを取得する
-        ref.read(insightServiceProvider).fetchNextPage();
+        ref.read(insightStateProvider.notifier).fetchNextPage();
       }
     });
     super.initState();
@@ -36,13 +35,13 @@ class _InsightViewState extends ConsumerState<InsightView> {
   @override
   Widget build(BuildContext context) {
     return AsyncValueHandler(
-      value: ref.watch(currentInsightReportsProvider),
-      builder: ((insights) {
+      value: ref.watch(insightStateProvider),
+      builder: ((state) {
         return ListView.builder(
           controller: _scrollController,
-          itemCount: insights.length,
+          itemCount: state.items.length,
           itemBuilder: (context, index) {
-            final insight = insights[index];
+            final insight = state.items[index];
             return InkWell(
               onTap: () => const DetailRoute().go(context),
               child: InsightItem(insight: insight),

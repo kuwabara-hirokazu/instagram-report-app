@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:instagram_report_app/util/logger.dart';
 
@@ -14,23 +12,12 @@ class InsightRepositoryImpl implements InsightRepository {
 
   final FirebaseFirestore firestore;
 
-  final _insightChangesController =
-      // broadcastコンストラクタを使うことで複数回listen()して値を受け取ることができる
-      StreamController<List<InsightMedia>>.broadcast();
-
-  final List<InsightMedia> _cache = [];
   DocumentSnapshot? _lastDoc;
 
   static const insightCollectionName = 'insight';
-  static const pageLimit = 10;
-
-  void dispose() {
-    logger.i('dispose: InsightRepository');
-    _insightChangesController.close();
-  }
 
   @override
-  Future<List<InsightMedia>> fetchFirstInsight() async {
+  Future<List<InsightMedia>> fetchFirstInsight(int pageLimit) async {
     final query = firestore
         .collection(insightCollectionName)
         .withInsightMediaDocumentConverter()
@@ -57,7 +44,8 @@ class InsightRepositoryImpl implements InsightRepository {
   }
 
   @override
-  Future<List<InsightMedia>> fetchNextInsight(DocumentSnapshot lastDoc) async {
+  Future<List<InsightMedia>> fetchNextInsight(
+      DocumentSnapshot lastDoc, int pageLimit) async {
     final query = firestore
         .collection(insightCollectionName)
         .withInsightMediaDocumentConverter()
@@ -73,18 +61,6 @@ class InsightRepositoryImpl implements InsightRepository {
     logger.i('media取得数: ${insightMediaList.length}');
 
     return insightMediaList;
-  }
-
-  @override
-  Future<void> updateInsight(List<InsightMedia> insights) async {
-    // キャッシュの更新
-    _cache.addAll(insights);
-    _insightChangesController.add(_cache);
-  }
-
-  @override
-  Stream<List<InsightMedia>> changesInsight() {
-    return _insightChangesController.stream;
   }
 }
 
