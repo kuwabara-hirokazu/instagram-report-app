@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:instagram_report_app/util/logger.dart';
 
@@ -12,18 +14,77 @@ class InsightRepositoryImpl implements InsightRepository {
 
   final FirebaseFirestore firestore;
 
+  final _insightChangesController =
+      // broadcastコンストラクタを使うことで複数回listen()して値を受け取ることができる
+      StreamController<List<InsightMedia>>.broadcast();
+
+  final List<InsightMedia> _cache = [];
+  DocumentSnapshot? _lastDoc;
+
   static const insightCollectionName = 'insight';
+  static const pageLimit = 10;
+
+  void dispose() {
+    logger.i('dispose: InsightRepository');
+    _insightChangesController.close();
+  }
 
   @override
-  Future<List<InsightMedia>> getInsightReports() async {
+  Future<List<InsightMedia>> fetchFirstInsight() async {
     final query = firestore
         .collection(insightCollectionName)
         .withInsightMediaDocumentConverter()
-        .orderBy(InsightMediaDocument.field.postedOrder, descending: true);
+        .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+        .limit(pageLimit);
     final snapshot = await query.get();
+
+    // 最後のDocをキャッシュしておく
+    _lastDoc = snapshot.docs.last;
+
     final insightMediaList = snapshot.toInsightMediaList();
     logger.i('media取得数: ${insightMediaList.length}');
+
     return insightMediaList;
+  }
+
+  @override
+  DocumentSnapshot getLastInsightDocument() {
+    if (_lastDoc == null) {
+      throw NullThrownError();
+    } else {
+      return _lastDoc!;
+    }
+  }
+
+  @override
+  Future<List<InsightMedia>> fetchNextInsight(DocumentSnapshot lastDoc) async {
+    final query = firestore
+        .collection(insightCollectionName)
+        .withInsightMediaDocumentConverter()
+        .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+        .startAfterDocument(lastDoc)
+        .limit(pageLimit);
+    final snapshot = await query.get();
+
+    // 最後のDocを更新
+    _lastDoc = snapshot.docs.last;
+
+    final insightMediaList = snapshot.toInsightMediaList();
+    logger.i('media取得数: ${insightMediaList.length}');
+
+    return insightMediaList;
+  }
+
+  @override
+  Future<void> updateInsight(List<InsightMedia> insights) async {
+    // キャッシュの更新
+    _cache.addAll(insights);
+    _insightChangesController.add(_cache);
+  }
+
+  @override
+  Stream<List<InsightMedia>> changesInsight() {
+    return _insightChangesController.stream;
   }
 }
 
