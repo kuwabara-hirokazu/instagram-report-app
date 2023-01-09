@@ -36,7 +36,8 @@ void main() {
         firestore.collection('insight').withInsightMediaDocumentConverter();
   });
 
-  group('fetchFirstInsight(_pageLimit)', () {
+  // 初期読み込みテスト
+  group('fetchFirstInsight', () {
     test('firestoreのデータが空のときは空で返ってくること', () async {
       final actualResult = await subject.fetchFirstInsight(_pageLimit);
       expect(actualResult, []);
@@ -135,6 +136,69 @@ void main() {
 
       final actualResult = await subject.fetchFirstInsight(_pageLimit);
       expect(actualResult, expectedResult);
+    });
+  });
+
+  // ページング読み込みテスト
+  group('fetchNextInsight', () {
+    test(
+        'firestoreにデータが${_pageLimit + _pageLimit - 1}個あるときは${_pageLimit - 1}個だけ返ってくること',
+        () async {
+      const dataLength = _pageLimit + _pageLimit - 1;
+
+      for (var index = 1; index <= dataLength; index++) {
+        final data = _createInsightMediaDocument(
+            postedOrder: index, timestamp: createdAt);
+        insightCollectionRef.add(data);
+      }
+
+      final snapshot = await insightCollectionRef
+          .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+          .limit(_pageLimit)
+          .get();
+      final lastDoc = snapshot.docs.last;
+
+      final actualResult = await subject.fetchNextInsight(lastDoc, _pageLimit);
+      expect(actualResult.length, dataLength - _pageLimit);
+    });
+    test('firestoreにデータが${_pageLimit + _pageLimit}個あるときは$_pageLimit個だけ返ってくること',
+        () async {
+      const dataLength = _pageLimit + _pageLimit;
+
+      for (var index = 1; index <= dataLength; index++) {
+        final data = _createInsightMediaDocument(
+            postedOrder: index, timestamp: createdAt);
+        insightCollectionRef.add(data);
+      }
+
+      final snapshot = await insightCollectionRef
+          .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+          .limit(_pageLimit)
+          .get();
+      final lastDoc = snapshot.docs.last;
+
+      final actualResult = await subject.fetchNextInsight(lastDoc, _pageLimit);
+      expect(actualResult.length, _pageLimit);
+    });
+    test(
+        'firestoreにデータが${_pageLimit + _pageLimit + 1}個あるときは$_pageLimit個だけ返ってくること',
+        () async {
+      const dataLength = _pageLimit + _pageLimit + 1;
+
+      for (var index = 1; index <= dataLength; index++) {
+        final data = _createInsightMediaDocument(
+            postedOrder: index, timestamp: createdAt);
+        insightCollectionRef.add(data);
+      }
+
+      final snapshot = await insightCollectionRef
+          .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+          .limit(_pageLimit)
+          .get();
+      final lastDoc = snapshot.docs.last;
+
+      final actualResult = await subject.fetchNextInsight(lastDoc, _pageLimit);
+      expect(actualResult.length, _pageLimit);
     });
   });
 }
