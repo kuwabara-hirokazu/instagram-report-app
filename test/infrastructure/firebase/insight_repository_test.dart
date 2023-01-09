@@ -7,6 +7,7 @@ import 'package:instagram_report_app/domain/repository/insight_repository.dart';
 import 'package:instagram_report_app/infrastructure/firebase/document/insight_media_document.dart';
 import 'package:instagram_report_app/infrastructure/firebase/repository/insight_repository.dart';
 
+const _pageLimit = 10;
 const _mediaTypeFeed = 'Feed';
 const _mediaTypeReel = 'Reel';
 const _meatAndFish = '肉・寿司';
@@ -35,13 +36,13 @@ void main() {
         firestore.collection('insight').withInsightMediaDocumentConverter();
   });
 
-  group('getInsightReports()', () {
+  group('fetchFirstInsight(_pageLimit)', () {
     test('firestoreのデータが空のときは空で返ってくること', () async {
-      final actualResult = await subject.getInsightReports();
+      final actualResult = await subject.fetchFirstInsight(_pageLimit);
       expect(actualResult, []);
     });
-    test('firestoreにデータが存在するときは全て返ってくること', () async {
-      const dataLength = 100;
+    test('firestoreにデータが1~$_pageLimit個のときは全て返ってくること', () async {
+      const dataLength = 10;
 
       for (var index = 1; index <= dataLength; index++) {
         final data = _createInsightMediaDocument(
@@ -54,7 +55,24 @@ void main() {
           (index) =>
               _createInsightMedia(postedOrder: index, timestamp: createdAt));
 
-      final actualResult = await subject.getInsightReports();
+      final actualResult = await subject.fetchFirstInsight(_pageLimit);
+      expect(actualResult.length, expectedResult.length);
+    });
+    test('firestoreにデータが$_pageLimit個より多いときは$_pageLimit個だけ返ってくること', () async {
+      const dataLength = _pageLimit + 1;
+
+      for (var index = 1; index <= dataLength; index++) {
+        final data = _createInsightMediaDocument(
+            postedOrder: index, timestamp: createdAt);
+        insightCollectionRef.add(data);
+      }
+
+      final expectedResult = List.generate(
+          dataLength - 1,
+          (index) =>
+              _createInsightMedia(postedOrder: index, timestamp: createdAt));
+
+      final actualResult = await subject.fetchFirstInsight(_pageLimit);
       expect(actualResult.length, expectedResult.length);
     });
     test('mediaTypeが正しく変換されること', () async {
@@ -69,7 +87,7 @@ void main() {
         _createInsightMedia(postedOrder: 2, timestamp: createdAt, isReel: true),
       ].reversed;
 
-      final actualResult = await subject.getInsightReports();
+      final actualResult = await subject.fetchFirstInsight(_pageLimit);
       expect(actualResult, expectedResult);
     });
     test('saveRateの小数点第三位以下が切り捨てられること', () async {
@@ -89,7 +107,7 @@ void main() {
             postedOrder: 3, timestamp: createdAt, saveRate: 1.23),
       ].reversed;
 
-      final actualResult = await subject.getInsightReports();
+      final actualResult = await subject.fetchFirstInsight(_pageLimit);
       expect(actualResult, expectedResult);
     });
     test('foodTypeが正しく変換されること', () async {
@@ -115,7 +133,7 @@ void main() {
             postedOrder: 4, timestamp: createdAt, foodType: FoodType.unknown),
       ].reversed;
 
-      final actualResult = await subject.getInsightReports();
+      final actualResult = await subject.fetchFirstInsight(_pageLimit);
       expect(actualResult, expectedResult);
     });
   });
