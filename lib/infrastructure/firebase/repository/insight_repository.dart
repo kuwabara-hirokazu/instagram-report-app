@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:instagram_report_app/util/logger.dart';
 
 import '../../../domain/entity/insight_media.dart';
 import '../../../domain/repository/insight_repository.dart';
@@ -12,18 +11,53 @@ class InsightRepositoryImpl implements InsightRepository {
 
   final FirebaseFirestore firestore;
 
+  DocumentSnapshot? _lastDoc;
+
   static const insightCollectionName = 'insight';
 
   @override
-  Future<List<InsightMedia>> getInsightReports() async {
+  Future<List<InsightMedia>> fetchFirstInsight(int pageLimit) async {
     final query = firestore
         .collection(insightCollectionName)
         .withInsightMediaDocumentConverter()
-        .orderBy(InsightMediaDocument.field.postedOrder, descending: true);
+        .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+        .limit(pageLimit);
     final snapshot = await query.get();
-    final insightMediaList = snapshot.toInsightMediaList();
-    logger.i('media取得数: ${insightMediaList.length}');
-    return insightMediaList;
+
+    if (snapshot.docs.isEmpty) return [];
+
+    // 最後のDocをキャッシュしておく
+    _lastDoc = snapshot.docs.last;
+
+    return snapshot.toInsightMediaList();
+  }
+
+  @override
+  DocumentSnapshot getLastInsightDocument() {
+    if (_lastDoc == null) {
+      throw NullThrownError();
+    } else {
+      return _lastDoc!;
+    }
+  }
+
+  @override
+  Future<List<InsightMedia>> fetchNextInsight(
+      DocumentSnapshot lastDoc, int pageLimit) async {
+    final query = firestore
+        .collection(insightCollectionName)
+        .withInsightMediaDocumentConverter()
+        .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+        .startAfterDocument(lastDoc)
+        .limit(pageLimit);
+    final snapshot = await query.get();
+
+    if (snapshot.docs.isEmpty) return [];
+
+    // 最後のDocを更新
+    _lastDoc = snapshot.docs.last;
+
+    return snapshot.toInsightMediaList();
   }
 }
 
