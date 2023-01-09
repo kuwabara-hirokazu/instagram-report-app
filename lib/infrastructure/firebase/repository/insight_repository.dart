@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:instagram_report_app/util/logger.dart';
 
 import '../../../domain/entity/insight_media.dart';
 import '../../../domain/repository/insight_repository.dart';
@@ -30,10 +29,7 @@ class InsightRepositoryImpl implements InsightRepository {
     // 最後のDocをキャッシュしておく
     _lastDoc = snapshot.docs.last;
 
-    final insightMediaList = snapshot.toInsightMediaList();
-    logger.i('media取得数: ${insightMediaList.length}');
-
-    return insightMediaList;
+    return snapshot.toInsightMediaList();
   }
 
   @override
@@ -61,10 +57,7 @@ class InsightRepositoryImpl implements InsightRepository {
     // 最後のDocを更新
     _lastDoc = snapshot.docs.last;
 
-    final insightMediaList = snapshot.toInsightMediaList();
-    logger.i('media取得数: ${insightMediaList.length}');
-
-    return insightMediaList;
+    return snapshot.toInsightMediaList();
   }
 }
 
