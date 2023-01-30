@@ -15,16 +15,16 @@ class InsightRepositoryImpl implements InsightRepository {
   DocumentSnapshot? _lastDoc;
 
   static const insightCollectionName = 'insight';
+  static const insightMediaDocumentFieldMediaType = 'mediaType';
+  static const mediaTypeFeed = 'Feed';
+  static const mediaTypeReel = 'Reel';
 
   @override
   Future<List<InsightMedia>> fetchFirstInsight(
-      InsightCategory sortCategory, int pageLimit) async {
-    final query = firestore
-        .collection(insightCollectionName)
-        .withInsightMediaDocumentConverter()
-        .orderBy(sortCategory.fieldName,
-            descending: (sortCategory != InsightCategory.ascending))
-        .limit(pageLimit);
+    InsightCategory sortCategory,
+    int pageLimit,
+  ) async {
+    final query = sortQuery(sortCategory).limit(pageLimit);
     final snapshot = await query.get();
 
     if (snapshot.docs.isEmpty) return [];
@@ -50,13 +50,8 @@ class InsightRepositoryImpl implements InsightRepository {
     InsightCategory sortCategory,
     int pageLimit,
   ) async {
-    final query = firestore
-        .collection(insightCollectionName)
-        .withInsightMediaDocumentConverter()
-        .orderBy(sortCategory.fieldName,
-            descending: (sortCategory != InsightCategory.ascending))
-        .startAfterDocument(lastDoc)
-        .limit(pageLimit);
+    final query =
+        sortQuery(sortCategory).startAfterDocument(lastDoc).limit(pageLimit);
     final snapshot = await query.get();
 
     if (snapshot.docs.isEmpty) return [];
@@ -65,6 +60,31 @@ class InsightRepositoryImpl implements InsightRepository {
     _lastDoc = snapshot.docs.last;
 
     return snapshot.toInsightMediaList();
+  }
+
+  Query<InsightMediaDocument> sortQuery(
+    InsightCategory sortCategory,
+  ) {
+    final docRef = firestore
+        .collection(insightCollectionName)
+        .withInsightMediaDocumentConverter();
+
+    if (sortCategory == InsightCategory.impression) {
+      // Feedでフィルター
+      return docRef
+          .where(insightMediaDocumentFieldMediaType, isEqualTo: mediaTypeFeed)
+          .orderBy(sortCategory.fieldName, descending: true);
+    }
+
+    if (sortCategory == InsightCategory.plays) {
+      // Reelでフィルター
+      return docRef
+          .where(insightMediaDocumentFieldMediaType, isEqualTo: mediaTypeReel)
+          .orderBy(sortCategory.fieldName, descending: true);
+    }
+
+    return docRef.orderBy(sortCategory.fieldName,
+        descending: (sortCategory != InsightCategory.ascending));
   }
 }
 
