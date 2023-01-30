@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_report_app/domain/entity/insight_media.dart';
 import 'package:instagram_report_app/gen/assets.gen.dart';
 import 'package:instagram_report_app/util/extension.dart';
+import '../../domain/entity/insight_category.dart';
 import 'media_thumbnail.dart';
 
 class InsightItem extends StatelessWidget {
@@ -28,8 +29,8 @@ class InsightItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.favorite_border,
+                  Icon(
+                    InsightCategory.favorite.icon,
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
@@ -38,8 +39,8 @@ class InsightItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Icon(
-                    Icons.chat_bubble_outline,
+                  Icon(
+                    InsightCategory.comment.icon,
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
@@ -48,8 +49,8 @@ class InsightItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Icon(
-                    Icons.bookmark_border,
+                  Icon(
+                    InsightCategory.save.icon,
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
@@ -63,20 +64,23 @@ class InsightItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(
-                    insight.isReel
-                        ? Icons.play_circle_outline
-                        : Icons.visibility_outlined,
-                    size: 28.0,
-                  ),
+                  insight.isReel
+                      ? Icon(
+                          InsightCategory.plays.icon,
+                          size: 28.0,
+                        )
+                      : Icon(
+                          InsightCategory.impression.icon,
+                          size: 28.0,
+                        ),
                   const SizedBox(width: 4),
                   Text(insight.impression.toFormatThousandSeparator()),
                 ],
               ),
               Row(
                 children: [
-                  const Icon(
-                    Icons.perm_identity,
+                  Icon(
+                    InsightCategory.reach.icon,
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
@@ -85,8 +89,8 @@ class InsightItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Icon(
-                    Icons.bookmark_added_outlined,
+                  Icon(
+                    InsightCategory.saveRate.icon,
                     size: 28.0,
                   ),
                   const SizedBox(width: 4),
