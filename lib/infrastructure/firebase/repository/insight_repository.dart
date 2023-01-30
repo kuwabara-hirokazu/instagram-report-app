@@ -18,12 +18,12 @@ class InsightRepositoryImpl implements InsightRepository {
 
   @override
   Future<List<InsightMedia>> fetchFirstInsight(
-      InsightCategory category, int pageLimit) async {
+      InsightCategory sortCategory, int pageLimit) async {
     final query = firestore
         .collection(insightCollectionName)
         .withInsightMediaDocumentConverter()
-        .orderBy(category.fieldName,
-            descending: (category != InsightCategory.ascending))
+        .orderBy(sortCategory.fieldName,
+            descending: (sortCategory != InsightCategory.ascending))
         .limit(pageLimit);
     final snapshot = await query.get();
 
@@ -47,14 +47,14 @@ class InsightRepositoryImpl implements InsightRepository {
   @override
   Future<List<InsightMedia>> fetchNextInsight(
     DocumentSnapshot lastDoc,
-    InsightCategory category,
+    InsightCategory sortCategory,
     int pageLimit,
   ) async {
     final query = firestore
         .collection(insightCollectionName)
         .withInsightMediaDocumentConverter()
-        .orderBy(category.fieldName,
-            descending: (category != InsightCategory.ascending))
+        .orderBy(sortCategory.fieldName,
+            descending: (sortCategory != InsightCategory.ascending))
         .startAfterDocument(lastDoc)
         .limit(pageLimit);
     final snapshot = await query.get();

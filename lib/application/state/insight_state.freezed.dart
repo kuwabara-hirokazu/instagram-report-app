@@ -19,6 +19,7 @@ mixin _$InsightState {
   List<InsightMedia> get items => throw _privateConstructorUsedError;
   int get totalCount => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
+  InsightCategory get sortCategory => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $InsightStateCopyWith<InsightState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $InsightStateCopyWith<$Res> {
           InsightState value, $Res Function(InsightState) then) =
       _$InsightStateCopyWithImpl<$Res, InsightState>;
   @useResult
-  $Res call({List<InsightMedia> items, int totalCount, bool hasNext});
+  $Res call(
+      {List<InsightMedia> items,
+      int totalCount,
+      bool hasNext,
+      InsightCategory sortCategory});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$InsightStateCopyWithImpl<$Res, $Val extends InsightState>
     Object? items = null,
     Object? totalCount = null,
     Object? hasNext = null,
+    Object? sortCategory = null,
   }) {
     return _then(_value.copyWith(
       items: null == items
@@ -64,6 +70,10 @@ class _$InsightStateCopyWithImpl<$Res, $Val extends InsightState>
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
+      sortCategory: null == sortCategory
+          ? _value.sortCategory
+          : sortCategory // ignore: cast_nullable_to_non_nullable
+              as InsightCategory,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$_InsightStateCopyWith<$Res>
       __$$_InsightStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<InsightMedia> items, int totalCount, bool hasNext});
+  $Res call(
+      {List<InsightMedia> items,
+      int totalCount,
+      bool hasNext,
+      InsightCategory sortCategory});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$_InsightStateCopyWithImpl<$Res>
     Object? items = null,
     Object? totalCount = null,
     Object? hasNext = null,
+    Object? sortCategory = null,
   }) {
     return _then(_$_InsightState(
       items: null == items
@@ -107,6 +122,10 @@ class __$$_InsightStateCopyWithImpl<$Res>
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
+      sortCategory: null == sortCategory
+          ? _value.sortCategory
+          : sortCategory // ignore: cast_nullable_to_non_nullable
+              as InsightCategory,
     ));
   }
 }
@@ -117,7 +136,8 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
   const _$_InsightState(
       {final List<InsightMedia> items = const <InsightMedia>[],
       this.totalCount = 0,
-      this.hasNext = false})
+      this.hasNext = false,
+      this.sortCategory = InsightCategory.descending})
       : _items = items;
 
   final List<InsightMedia> _items;
@@ -135,10 +155,13 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
   @override
   @JsonKey()
   final bool hasNext;
+  @override
+  @JsonKey()
+  final InsightCategory sortCategory;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InsightState(items: $items, totalCount: $totalCount, hasNext: $hasNext)';
+    return 'InsightState(items: $items, totalCount: $totalCount, hasNext: $hasNext, sortCategory: $sortCategory)';
   }
 
   @override
@@ -148,7 +171,8 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
       ..add(DiagnosticsProperty('type', 'InsightState'))
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('totalCount', totalCount))
-      ..add(DiagnosticsProperty('hasNext', hasNext));
+      ..add(DiagnosticsProperty('hasNext', hasNext))
+      ..add(DiagnosticsProperty('sortCategory', sortCategory));
   }
 
   @override
@@ -159,12 +183,18 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
             const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.totalCount, totalCount) ||
                 other.totalCount == totalCount) &&
-            (identical(other.hasNext, hasNext) || other.hasNext == hasNext));
+            (identical(other.hasNext, hasNext) || other.hasNext == hasNext) &&
+            (identical(other.sortCategory, sortCategory) ||
+                other.sortCategory == sortCategory));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_items), totalCount, hasNext);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_items),
+      totalCount,
+      hasNext,
+      sortCategory);
 
   @JsonKey(ignore: true)
   @override
@@ -177,7 +207,8 @@ abstract class _InsightState implements InsightState {
   const factory _InsightState(
       {final List<InsightMedia> items,
       final int totalCount,
-      final bool hasNext}) = _$_InsightState;
+      final bool hasNext,
+      final InsightCategory sortCategory}) = _$_InsightState;
 
   @override
   List<InsightMedia> get items;
@@ -185,6 +216,8 @@ abstract class _InsightState implements InsightState {
   int get totalCount;
   @override
   bool get hasNext;
+  @override
+  InsightCategory get sortCategory;
   @override
   @JsonKey(ignore: true)
   _$$_InsightStateCopyWith<_$_InsightState> get copyWith =>

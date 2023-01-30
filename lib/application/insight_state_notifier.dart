@@ -20,16 +20,17 @@ class InsightStateNotifier extends StateNotifier<AsyncValue<InsightState>> {
   static const pageLimit = 10;
 
   // 最初のページを取得する
-  Future<void> fetchFirstPage(InsightCategory category) async {
+  Future<void> fetchFirstPage(InsightCategory sortCategory) async {
     state = await AsyncValue.guard(() async {
       final insights =
-          await insightRepository.fetchFirstInsight(category, pageLimit);
+          await insightRepository.fetchFirstInsight(sortCategory, pageLimit);
 
       final insightsCount = insights.length;
       final result = InsightState(
         items: insights,
         totalCount: insightsCount,
         hasNext: insightsCount == pageLimit,
+        sortCategory: sortCategory,
       );
 
       logger.i(
@@ -43,7 +44,7 @@ class InsightStateNotifier extends StateNotifier<AsyncValue<InsightState>> {
   }
 
   // 次のページを取得する
-  Future<void> fetchNextPage(InsightCategory category) async {
+  Future<void> fetchNextPage() async {
     final currentState = state.value;
     if (currentState == null) return;
 
@@ -52,13 +53,14 @@ class InsightStateNotifier extends StateNotifier<AsyncValue<InsightState>> {
     state = await AsyncValue.guard(() async {
       final lastDoc = insightRepository.getLastInsightDocument();
       final insights = await insightRepository.fetchNextInsight(
-          lastDoc, category, pageLimit);
+          lastDoc, currentState.sortCategory, pageLimit);
 
       final items = currentState.items + insights;
       final result = InsightState(
         items: items,
         totalCount: items.length,
         hasNext: insights.length == pageLimit,
+        sortCategory: currentState.sortCategory,
       );
 
       logger.i(

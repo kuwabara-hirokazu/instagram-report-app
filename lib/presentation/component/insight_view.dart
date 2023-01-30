@@ -29,9 +29,7 @@ class _InsightViewState extends ConsumerState<InsightView> {
       if (_scrollController.offset ==
           _scrollController.position.maxScrollExtent) {
         // スクロールが最後に達した時、次のデータを取得する
-        ref
-            .read(insightStateProvider.notifier)
-            .fetchNextPage(InsightCategory.descending);
+        ref.read(insightStateProvider.notifier).fetchNextPage();
       }
     });
     super.initState();

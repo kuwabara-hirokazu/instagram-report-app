@@ -10,12 +10,12 @@ final insightRepositoryProvider = Provider<InsightRepository>(
 
 abstract class InsightRepository {
   Future<List<InsightMedia>> fetchFirstInsight(
-    InsightCategory category,
+    InsightCategory sortCategory,
     int pageLimit,
   );
   Future<List<InsightMedia>> fetchNextInsight(
     DocumentSnapshot lastDoc,
-    InsightCategory category,
+    InsightCategory sortCategory,
     int pageLimit,
   );
   DocumentSnapshot getLastInsightDocument();
