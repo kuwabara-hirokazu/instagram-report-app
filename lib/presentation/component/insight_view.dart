@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_report_app/presentation/component/insight_item.dart';
 
 import '../../application/insight_state_notifier.dart';
+import '../../domain/entity/insight_category.dart';
 import '../router.dart';
 import 'async_value_handler.dart';
 
@@ -19,14 +20,18 @@ class _InsightViewState extends ConsumerState<InsightView> {
   @override
   void initState() {
     // 初期ページのデータを取得する
-    ref.read(insightStateProvider.notifier).fetchFirstPage();
+    ref
+        .read(insightStateProvider.notifier)
+        .fetchFirstPage(InsightCategory.descending);
 
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       if (_scrollController.offset ==
           _scrollController.position.maxScrollExtent) {
         // スクロールが最後に達した時、次のデータを取得する
-        ref.read(insightStateProvider.notifier).fetchNextPage();
+        ref
+            .read(insightStateProvider.notifier)
+            .fetchNextPage(InsightCategory.descending);
       }
     });
     super.initState();

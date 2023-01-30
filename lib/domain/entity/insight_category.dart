@@ -7,7 +7,9 @@ enum InsightCategory {
   plays('impression', '再生数', Icons.play_circle_outline),
   impression('impression', 'インプレッション数', Icons.visibility_outlined),
   reach('reach', 'リーチ数', Icons.perm_identity),
-  saveRate('saveRate', '保存率', Icons.bookmark_added_outlined);
+  saveRate('saveRate', '保存率', Icons.bookmark_added_outlined),
+  ascending('postedOrder', '日付昇順', Icons.vertical_align_top),
+  descending('postedOrder', '日付降順', Icons.vertical_align_bottom);
 
   const InsightCategory(this.fieldName, this.name, this.icon);
 

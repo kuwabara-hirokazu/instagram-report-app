@@ -25,10 +25,4 @@ class InsightMediaDocument with _$InsightMediaDocument {
 
   factory InsightMediaDocument.fromJson(Map<String, dynamic> json) =>
       _$InsightMediaDocumentFromJson(json);
-
-  static InsightMediaDocumentField get field => InsightMediaDocumentField();
-}
-
-class InsightMediaDocumentField {
-  String get postedOrder => 'postedOrder';
 }

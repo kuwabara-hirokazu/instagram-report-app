@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../domain/entity/insight_category.dart';
 import '../../../domain/entity/insight_media.dart';
 import '../../../domain/repository/insight_repository.dart';
 import '../document/insight_media_document.dart';
@@ -16,11 +17,13 @@ class InsightRepositoryImpl implements InsightRepository {
   static const insightCollectionName = 'insight';
 
   @override
-  Future<List<InsightMedia>> fetchFirstInsight(int pageLimit) async {
+  Future<List<InsightMedia>> fetchFirstInsight(
+      InsightCategory category, int pageLimit) async {
     final query = firestore
         .collection(insightCollectionName)
         .withInsightMediaDocumentConverter()
-        .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+        .orderBy(category.fieldName,
+            descending: (category != InsightCategory.ascending))
         .limit(pageLimit);
     final snapshot = await query.get();
 
@@ -43,11 +46,15 @@ class InsightRepositoryImpl implements InsightRepository {
 
   @override
   Future<List<InsightMedia>> fetchNextInsight(
-      DocumentSnapshot lastDoc, int pageLimit) async {
+    DocumentSnapshot lastDoc,
+    InsightCategory category,
+    int pageLimit,
+  ) async {
     final query = firestore
         .collection(insightCollectionName)
         .withInsightMediaDocumentConverter()
-        .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+        .orderBy(category.fieldName,
+            descending: (category != InsightCategory.ascending))
         .startAfterDocument(lastDoc)
         .limit(pageLimit);
     final snapshot = await query.get();
