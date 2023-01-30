@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../application/insight_state_notifier.dart';
 import '../../domain/entity/insight_category.dart';
 
 class InsightSortButton extends StatelessWidget {
@@ -42,10 +43,14 @@ class InsightSortBottomSheet extends ConsumerWidget {
       itemBuilder: (BuildContext context, int index) {
         final category = InsightCategory.values[index];
         return ListTile(
-          leading: Icon(category.icon),
-          title: Text(category.name),
-          onTap: () => {},
-        );
+            leading: Icon(category.icon),
+            title: Text(category.name),
+            onTap: () {
+              ref.read(insightStateProvider.notifier).fetchFirstPage(category);
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
+            });
       },
     );
   }
