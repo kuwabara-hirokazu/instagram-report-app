@@ -19,6 +19,7 @@ mixin _$InsightState {
   List<InsightMedia> get items => throw _privateConstructorUsedError;
   int get totalCount => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
+  bool get isFirstPage => throw _privateConstructorUsedError;
   InsightCategory get sortCategory => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -36,6 +37,7 @@ abstract class $InsightStateCopyWith<$Res> {
       {List<InsightMedia> items,
       int totalCount,
       bool hasNext,
+      bool isFirstPage,
       InsightCategory sortCategory});
 }
 
@@ -55,6 +57,7 @@ class _$InsightStateCopyWithImpl<$Res, $Val extends InsightState>
     Object? items = null,
     Object? totalCount = null,
     Object? hasNext = null,
+    Object? isFirstPage = null,
     Object? sortCategory = null,
   }) {
     return _then(_value.copyWith(
@@ -69,6 +72,10 @@ class _$InsightStateCopyWithImpl<$Res, $Val extends InsightState>
       hasNext: null == hasNext
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFirstPage: null == isFirstPage
+          ? _value.isFirstPage
+          : isFirstPage // ignore: cast_nullable_to_non_nullable
               as bool,
       sortCategory: null == sortCategory
           ? _value.sortCategory
@@ -90,6 +97,7 @@ abstract class _$$_InsightStateCopyWith<$Res>
       {List<InsightMedia> items,
       int totalCount,
       bool hasNext,
+      bool isFirstPage,
       InsightCategory sortCategory});
 }
 
@@ -107,6 +115,7 @@ class __$$_InsightStateCopyWithImpl<$Res>
     Object? items = null,
     Object? totalCount = null,
     Object? hasNext = null,
+    Object? isFirstPage = null,
     Object? sortCategory = null,
   }) {
     return _then(_$_InsightState(
@@ -121,6 +130,10 @@ class __$$_InsightStateCopyWithImpl<$Res>
       hasNext: null == hasNext
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFirstPage: null == isFirstPage
+          ? _value.isFirstPage
+          : isFirstPage // ignore: cast_nullable_to_non_nullable
               as bool,
       sortCategory: null == sortCategory
           ? _value.sortCategory
@@ -137,6 +150,7 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
       {final List<InsightMedia> items = const <InsightMedia>[],
       this.totalCount = 0,
       this.hasNext = false,
+      this.isFirstPage = false,
       this.sortCategory = InsightCategory.descending})
       : _items = items;
 
@@ -157,11 +171,14 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
   final bool hasNext;
   @override
   @JsonKey()
+  final bool isFirstPage;
+  @override
+  @JsonKey()
   final InsightCategory sortCategory;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InsightState(items: $items, totalCount: $totalCount, hasNext: $hasNext, sortCategory: $sortCategory)';
+    return 'InsightState(items: $items, totalCount: $totalCount, hasNext: $hasNext, isFirstPage: $isFirstPage, sortCategory: $sortCategory)';
   }
 
   @override
@@ -172,6 +189,7 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
       ..add(DiagnosticsProperty('items', items))
       ..add(DiagnosticsProperty('totalCount', totalCount))
       ..add(DiagnosticsProperty('hasNext', hasNext))
+      ..add(DiagnosticsProperty('isFirstPage', isFirstPage))
       ..add(DiagnosticsProperty('sortCategory', sortCategory));
   }
 
@@ -184,6 +202,8 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
             (identical(other.totalCount, totalCount) ||
                 other.totalCount == totalCount) &&
             (identical(other.hasNext, hasNext) || other.hasNext == hasNext) &&
+            (identical(other.isFirstPage, isFirstPage) ||
+                other.isFirstPage == isFirstPage) &&
             (identical(other.sortCategory, sortCategory) ||
                 other.sortCategory == sortCategory));
   }
@@ -194,6 +214,7 @@ class _$_InsightState with DiagnosticableTreeMixin implements _InsightState {
       const DeepCollectionEquality().hash(_items),
       totalCount,
       hasNext,
+      isFirstPage,
       sortCategory);
 
   @JsonKey(ignore: true)
@@ -208,6 +229,7 @@ abstract class _InsightState implements InsightState {
       {final List<InsightMedia> items,
       final int totalCount,
       final bool hasNext,
+      final bool isFirstPage,
       final InsightCategory sortCategory}) = _$_InsightState;
 
   @override
@@ -216,6 +238,8 @@ abstract class _InsightState implements InsightState {
   int get totalCount;
   @override
   bool get hasNext;
+  @override
+  bool get isFirstPage;
   @override
   InsightCategory get sortCategory;
   @override

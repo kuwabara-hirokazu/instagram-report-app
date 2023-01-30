@@ -30,6 +30,7 @@ class InsightStateNotifier extends StateNotifier<AsyncValue<InsightState>> {
         items: insights,
         totalCount: insightsCount,
         hasNext: insightsCount == pageLimit,
+        isFirstPage: true,
         sortCategory: sortCategory,
       );
 
@@ -60,6 +61,7 @@ class InsightStateNotifier extends StateNotifier<AsyncValue<InsightState>> {
         items: items,
         totalCount: items.length,
         hasNext: insights.length == pageLimit,
+        isFirstPage: false,
         sortCategory: currentState.sortCategory,
       );
 

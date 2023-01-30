@@ -13,6 +13,7 @@ class InsightState with _$InsightState {
     @Default(<InsightMedia>[]) List<InsightMedia> items,
     @Default(0) int totalCount,
     @Default(false) bool hasNext,
+    @Default(false) bool isFirstPage,
     @Default(InsightCategory.descending) InsightCategory sortCategory,
   }) = _InsightState;
 }

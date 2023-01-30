@@ -40,6 +40,12 @@ class _InsightViewState extends ConsumerState<InsightView> {
     return AsyncValueHandler(
       value: ref.watch(insightStateProvider),
       builder: ((state) {
+        if (state.isFirstPage) {
+          // 画面生成時、scrollControllerがattachするのを待つ必要があるため一瞬待つ
+          Future.delayed(const Duration(milliseconds: 100), () {
+            _scrollController.jumpTo(0.0);
+          });
+        }
         return ListView.builder(
           controller: _scrollController,
           itemCount: state.items.length,
