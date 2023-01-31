@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:instagram_report_app/domain/entity/insight_category.dart';
 import 'package:instagram_report_app/domain/entity/insight_media.dart';
 import 'package:instagram_report_app/domain/repository/insight_repository.dart';
 import 'package:instagram_report_app/infrastructure/firebase/document/insight_media_document.dart';
@@ -18,6 +19,7 @@ void main() {
   late InsightRepository subject;
   late CollectionReference<InsightMediaDocument> insightCollectionRef;
 
+  const InsightCategory sortCategoryDescending = InsightCategory.descending;
   final DateTime createdAt = DateTime(2023, 1, 1, 12, 12);
 
   // 毎回テストケースを実行するたびに最初に呼ばれる処理
@@ -39,7 +41,8 @@ void main() {
   // 初期読み込みテスト
   group('fetchFirstInsight', () {
     test('firestoreのデータが空のときは空で返ってくること', () async {
-      final actualResult = await subject.fetchFirstInsight(_pageLimit);
+      final actualResult =
+          await subject.fetchFirstInsight(sortCategoryDescending, _pageLimit);
       expect(actualResult, []);
     });
     test('firestoreにデータが1~$_pageLimit個のときは全て返ってくること', () async {
@@ -56,7 +59,8 @@ void main() {
           (index) =>
               _createInsightMedia(postedOrder: index, timestamp: createdAt));
 
-      final actualResult = await subject.fetchFirstInsight(_pageLimit);
+      final actualResult =
+          await subject.fetchFirstInsight(sortCategoryDescending, _pageLimit);
       expect(actualResult.length, expectedResult.length);
     });
     test('firestoreにデータが$_pageLimit個より多いときは$_pageLimit個だけ返ってくること', () async {
@@ -73,7 +77,8 @@ void main() {
           (index) =>
               _createInsightMedia(postedOrder: index, timestamp: createdAt));
 
-      final actualResult = await subject.fetchFirstInsight(_pageLimit);
+      final actualResult =
+          await subject.fetchFirstInsight(sortCategoryDescending, _pageLimit);
       expect(actualResult.length, expectedResult.length);
     });
     test('mediaTypeが正しく変換されること', () async {
@@ -88,7 +93,8 @@ void main() {
         _createInsightMedia(postedOrder: 2, timestamp: createdAt, isReel: true),
       ].reversed;
 
-      final actualResult = await subject.fetchFirstInsight(_pageLimit);
+      final actualResult =
+          await subject.fetchFirstInsight(sortCategoryDescending, _pageLimit);
       expect(actualResult, expectedResult);
     });
     test('saveRateの小数点第三位以下が切り捨てられること', () async {
@@ -108,7 +114,8 @@ void main() {
             postedOrder: 3, timestamp: createdAt, saveRate: 1.23),
       ].reversed;
 
-      final actualResult = await subject.fetchFirstInsight(_pageLimit);
+      final actualResult =
+          await subject.fetchFirstInsight(sortCategoryDescending, _pageLimit);
       expect(actualResult, expectedResult);
     });
     test('foodTypeが正しく変換されること', () async {
@@ -134,7 +141,120 @@ void main() {
             postedOrder: 4, timestamp: createdAt, foodType: FoodType.unknown),
       ].reversed;
 
-      final actualResult = await subject.fetchFirstInsight(_pageLimit);
+      final actualResult =
+          await subject.fetchFirstInsight(sortCategoryDescending, _pageLimit);
+      expect(actualResult, expectedResult);
+    });
+    test('sortCategory=saveのとき保存数の大きい順に返されること', () async {
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 1, timestamp: createdAt, saved: 100));
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 2, timestamp: createdAt, saved: 50));
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 3, timestamp: createdAt, saved: 200));
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 4, timestamp: createdAt, saved: 150));
+
+      final expectedResult = [
+        _createInsightMedia(postedOrder: 3, timestamp: createdAt, saved: 200),
+        _createInsightMedia(postedOrder: 4, timestamp: createdAt, saved: 150),
+        _createInsightMedia(postedOrder: 1, timestamp: createdAt, saved: 100),
+        _createInsightMedia(postedOrder: 2, timestamp: createdAt, saved: 50),
+      ];
+
+      final actualResult =
+          await subject.fetchFirstInsight(InsightCategory.save, _pageLimit);
+      expect(actualResult, expectedResult);
+    });
+    test('sortCategory=ascendingのとき日付昇順に返されること', () async {
+      final DateTime createdAt1 = DateTime(2023, 1, 1, 12, 12);
+      final DateTime createdAt2 = DateTime(2023, 1, 2, 12, 12);
+      final DateTime createdAt3 = DateTime(2023, 1, 3, 12, 12);
+      insightCollectionRef.add(
+          _createInsightMediaDocument(postedOrder: 1, timestamp: createdAt1));
+      insightCollectionRef.add(
+          _createInsightMediaDocument(postedOrder: 2, timestamp: createdAt2));
+      insightCollectionRef.add(
+          _createInsightMediaDocument(postedOrder: 3, timestamp: createdAt3));
+
+      final expectedResult = [
+        _createInsightMedia(postedOrder: 1, timestamp: createdAt1),
+        _createInsightMedia(postedOrder: 2, timestamp: createdAt2),
+        _createInsightMedia(postedOrder: 3, timestamp: createdAt3),
+      ];
+
+      final actualResult = await subject.fetchFirstInsight(
+          InsightCategory.ascending, _pageLimit);
+      expect(actualResult, expectedResult);
+    });
+    test('sortCategory=impressionのときmediaType=Feedのみがimpression降順で返されてること',
+        () async {
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 1,
+          timestamp: createdAt,
+          mediaType: _mediaTypeFeed,
+          impression: 1000));
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 2,
+          timestamp: createdAt,
+          mediaType: _mediaTypeReel,
+          impression: 2000));
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 3,
+          timestamp: createdAt,
+          mediaType: _mediaTypeFeed,
+          impression: 3000));
+
+      final expectedResult = [
+        _createInsightMedia(
+            postedOrder: 3,
+            timestamp: createdAt,
+            isReel: false,
+            impression: 3000),
+        _createInsightMedia(
+            postedOrder: 1,
+            timestamp: createdAt,
+            isReel: false,
+            impression: 1000),
+      ];
+
+      final actualResult = await subject.fetchFirstInsight(
+          InsightCategory.impression, _pageLimit);
+      expect(actualResult, expectedResult);
+    });
+    test('sortCategory=playsのときmediaType=Reelのみがimpression降順で返されてること',
+        () async {
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 1,
+          timestamp: createdAt,
+          mediaType: _mediaTypeReel,
+          impression: 1000));
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 2,
+          timestamp: createdAt,
+          mediaType: _mediaTypeFeed,
+          impression: 2000));
+      insightCollectionRef.add(_createInsightMediaDocument(
+          postedOrder: 3,
+          timestamp: createdAt,
+          mediaType: _mediaTypeReel,
+          impression: 3000));
+
+      final expectedResult = [
+        _createInsightMedia(
+            postedOrder: 3,
+            timestamp: createdAt,
+            isReel: true,
+            impression: 3000),
+        _createInsightMedia(
+            postedOrder: 1,
+            timestamp: createdAt,
+            isReel: true,
+            impression: 1000),
+      ];
+
+      final actualResult =
+          await subject.fetchFirstInsight(InsightCategory.plays, _pageLimit);
       expect(actualResult, expectedResult);
     });
   });
@@ -153,12 +273,13 @@ void main() {
       }
 
       final snapshot = await insightCollectionRef
-          .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+          .orderBy(sortCategoryDescending.fieldName, descending: true)
           .limit(_pageLimit)
           .get();
       final lastDoc = snapshot.docs.last;
 
-      final actualResult = await subject.fetchNextInsight(lastDoc, _pageLimit);
+      final actualResult = await subject.fetchNextInsight(
+          lastDoc, sortCategoryDescending, _pageLimit);
       expect(actualResult.length, dataLength - _pageLimit);
     });
     test('firestoreにデータが${_pageLimit + _pageLimit}個あるときは$_pageLimit個だけ返ってくること',
@@ -172,12 +293,13 @@ void main() {
       }
 
       final snapshot = await insightCollectionRef
-          .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+          .orderBy(sortCategoryDescending.fieldName, descending: true)
           .limit(_pageLimit)
           .get();
       final lastDoc = snapshot.docs.last;
 
-      final actualResult = await subject.fetchNextInsight(lastDoc, _pageLimit);
+      final actualResult = await subject.fetchNextInsight(
+          lastDoc, sortCategoryDescending, _pageLimit);
       expect(actualResult.length, _pageLimit);
     });
     test(
@@ -192,12 +314,13 @@ void main() {
       }
 
       final snapshot = await insightCollectionRef
-          .orderBy(InsightMediaDocument.field.postedOrder, descending: true)
+          .orderBy(sortCategoryDescending.fieldName, descending: true)
           .limit(_pageLimit)
           .get();
       final lastDoc = snapshot.docs.last;
 
-      final actualResult = await subject.fetchNextInsight(lastDoc, _pageLimit);
+      final actualResult = await subject.fetchNextInsight(
+          lastDoc, sortCategoryDescending, _pageLimit);
       expect(actualResult.length, _pageLimit);
     });
   });
