@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_report_app/presentation/theme.dart';
+import 'package:instagram_report_app/presentation/resources/theme.dart';
 
 import 'router.dart';
 

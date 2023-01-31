@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../entity/insight_category.dart';
 import '../entity/insight_media.dart';
 
 final insightRepositoryProvider = Provider<InsightRepository>(
@@ -9,10 +10,12 @@ final insightRepositoryProvider = Provider<InsightRepository>(
 
 abstract class InsightRepository {
   Future<List<InsightMedia>> fetchFirstInsight(
+    InsightCategory sortCategory,
     int pageLimit,
   );
   Future<List<InsightMedia>> fetchNextInsight(
     DocumentSnapshot lastDoc,
+    InsightCategory sortCategory,
     int pageLimit,
   );
   DocumentSnapshot getLastInsightDocument();

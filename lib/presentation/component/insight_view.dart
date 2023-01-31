@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_report_app/presentation/component/insight_item.dart';
 
 import '../../application/insight_state_notifier.dart';
+import '../../domain/entity/insight_category.dart';
 import '../router.dart';
 import 'async_value_handler.dart';
 
@@ -19,7 +20,9 @@ class _InsightViewState extends ConsumerState<InsightView> {
   @override
   void initState() {
     // 初期ページのデータを取得する
-    ref.read(insightStateProvider.notifier).fetchFirstPage();
+    ref
+        .read(insightStateProvider.notifier)
+        .fetchFirstPage(InsightCategory.descending);
 
     _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -37,6 +40,12 @@ class _InsightViewState extends ConsumerState<InsightView> {
     return AsyncValueHandler(
       value: ref.watch(insightStateProvider),
       builder: ((state) {
+        if (state.isFirstPage) {
+          // 画面生成時、scrollControllerがattachするのを待つ必要があるため一瞬待つ
+          Future.delayed(const Duration(milliseconds: 100), () {
+            _scrollController.jumpTo(0.0);
+          });
+        }
         return ListView.builder(
           controller: _scrollController,
           itemCount: state.items.length,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_report_app/presentation/component/insight_sort.dart';
 import '../component/insight_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,9 +8,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('ホーム'),
-        ),
-        body: const InsightView());
+      appBar: AppBar(
+        title: const Text('ホーム'),
+        actions: const [
+          InsightSortButton(),
+        ],
+      ),
+      body: const InsightView(),
+    );
   }
 }

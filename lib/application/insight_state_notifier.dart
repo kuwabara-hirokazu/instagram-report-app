@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_report_app/application/state/insight_state.dart';
 import 'package:instagram_report_app/util/logger.dart';
 
+import '../domain/entity/insight_category.dart';
 import '../domain/repository/insight_repository.dart';
 
 final insightStateProvider = StateNotifierProvider.autoDispose<
@@ -19,15 +20,18 @@ class InsightStateNotifier extends StateNotifier<AsyncValue<InsightState>> {
   static const pageLimit = 10;
 
   // 最初のページを取得する
-  Future<void> fetchFirstPage() async {
+  Future<void> fetchFirstPage(InsightCategory sortCategory) async {
     state = await AsyncValue.guard(() async {
-      final insights = await insightRepository.fetchFirstInsight(pageLimit);
+      final insights =
+          await insightRepository.fetchFirstInsight(sortCategory, pageLimit);
 
       final insightsCount = insights.length;
       final result = InsightState(
         items: insights,
         totalCount: insightsCount,
         hasNext: insightsCount == pageLimit,
+        isFirstPage: true,
+        sortCategory: sortCategory,
       );
 
       logger.i(
@@ -49,14 +53,16 @@ class InsightStateNotifier extends StateNotifier<AsyncValue<InsightState>> {
 
     state = await AsyncValue.guard(() async {
       final lastDoc = insightRepository.getLastInsightDocument();
-      final insights =
-          await insightRepository.fetchNextInsight(lastDoc, pageLimit);
+      final insights = await insightRepository.fetchNextInsight(
+          lastDoc, currentState.sortCategory, pageLimit);
 
       final items = currentState.items + insights;
       final result = InsightState(
         items: items,
         totalCount: items.length,
         hasNext: insights.length == pageLimit,
+        isFirstPage: false,
+        sortCategory: currentState.sortCategory,
       );
 
       logger.i(
