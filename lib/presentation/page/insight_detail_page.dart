@@ -9,10 +9,16 @@ class InsightDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (insight == null) return SizedBox();
+    if (insight == null) return const SizedBox();
 
     return Scaffold(
-        appBar: AppBar(title: const Text('Details Screen')),
-        body: Text(insight!.caption));
+      appBar: AppBar(title: Text('投稿No.${insight!.postedOrder}')),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(insight!.caption),
+        ),
+      ),
+    );
   }
 }
