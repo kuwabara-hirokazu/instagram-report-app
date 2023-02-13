@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:instagram_report_app/presentation/page/detail.dart';
+import 'package:instagram_report_app/presentation/page/insight_detail_page.dart';
 import 'package:instagram_report_app/presentation/page/home_page.dart';
+
+import '../domain/entity/insight_media.dart';
 
 part 'router.g.dart';
 
@@ -18,8 +20,8 @@ final routerProvider = Provider<GoRouter>(
 @TypedGoRoute<HomeRoute>(
   path: '/',
   routes: [
-    TypedGoRoute<DetailRoute>(
-      path: 'detail',
+    TypedGoRoute<InsightDetailRoute>(
+      path: 'insight/:insightId',
     )
   ],
 )
@@ -32,11 +34,24 @@ class HomeRoute extends GoRouteData {
   }
 }
 
-class DetailRoute extends GoRouteData {
-  const DetailRoute();
+class InsightDetailRoute extends GoRouteData {
+  const InsightDetailRoute({
+    required this.insightId,
+    this.$extra,
+  });
+
+  final String insightId;
+  final InsightMedia? $extra;
+
+  factory InsightDetailRoute.fromInsight(InsightMedia insight) {
+    return InsightDetailRoute(
+      insightId: insight.postedOrder.toString(),
+      $extra: insight,
+    );
+  }
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const DetailsScreen();
+    return InsightDetailPage(insight: $extra);
   }
 }
