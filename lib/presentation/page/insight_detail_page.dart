@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_report_app/util/extension.dart';
+import 'package:instagram_report_app/util/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../domain/entity/insight_media.dart';
 
@@ -36,6 +38,21 @@ class InsightDetailPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() async {
+          try {
+            await launchUrl(Uri.parse(insight!.permalink));
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('このURLは開けませんでした'),
+              ),
+            );
+            logger.e(e);
+          }
+        }),
+        child: const Icon(Icons.open_in_new),
       ),
     );
   }
