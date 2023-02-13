@@ -26,3 +26,10 @@ extension FoodTypeEx on FoodType {
     }
   }
 }
+
+extension DateTimeEx on DateTime {
+  String toFormatString({String format = 'yyyy/MM/dd'}) {
+    DateFormat dateFormat = DateFormat(format);
+    return dateFormat.format(this);
+  }
+}

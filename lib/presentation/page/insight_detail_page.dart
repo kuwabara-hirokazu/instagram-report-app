@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_report_app/util/extension.dart';
 
 import '../../domain/entity/insight_media.dart';
 
@@ -16,7 +17,18 @@ class InsightDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(insight!.caption),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('[投稿日]'),
+              const SizedBox(height: 8),
+              Text(insight!.postedDate.toFormatString()),
+              const SizedBox(height: 16),
+              const Text('[本文]'),
+              const SizedBox(height: 8),
+              Text(insight!.caption),
+            ],
+          ),
         ),
       ),
     );
