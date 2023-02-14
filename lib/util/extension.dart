@@ -26,3 +26,12 @@ extension FoodTypeEx on FoodType {
     }
   }
 }
+
+extension DateTimeEx on DateTime {
+  String toFormatString({String format = 'yyyy/MM/dd'}) {
+    final weekList = ['月', '火', '水', '木', '金', '土', '日'];
+    final week = weekList[weekday - 1];
+    DateFormat dateFormat = DateFormat(format);
+    return '${dateFormat.format(this)} ($week)';
+  }
+}

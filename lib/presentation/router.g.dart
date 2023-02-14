@@ -15,8 +15,8 @@ GoRoute get $homeRoute => GoRouteData.$route(
       factory: $HomeRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
-          path: 'detail',
-          factory: $DetailRouteExtension._fromState,
+          path: 'insight/:insightId',
+          factory: $InsightDetailRouteExtension._fromState,
         ),
       ],
     );
@@ -33,11 +33,15 @@ extension $HomeRouteExtension on HomeRoute {
   void push(BuildContext context) => context.push(location, extra: this);
 }
 
-extension $DetailRouteExtension on DetailRoute {
-  static DetailRoute _fromState(GoRouterState state) => const DetailRoute();
+extension $InsightDetailRouteExtension on InsightDetailRoute {
+  static InsightDetailRoute _fromState(GoRouterState state) =>
+      InsightDetailRoute(
+        insightId: state.params['insightId']!,
+        $extra: state.extra as InsightMedia?,
+      );
 
   String get location => GoRouteData.$location(
-        '/detail',
+        '/insight/${Uri.encodeComponent(insightId)}',
       );
 
   void go(BuildContext context) => context.go(location, extra: this);

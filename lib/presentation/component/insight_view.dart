@@ -52,7 +52,7 @@ class _InsightViewState extends ConsumerState<InsightView> {
           itemBuilder: (context, index) {
             final insight = state.items[index];
             return InkWell(
-              onTap: () => const DetailRoute().go(context),
+              onTap: () => InsightDetailRoute.fromInsight(insight).go(context),
               child: InsightItem(insight: insight),
             );
           },
