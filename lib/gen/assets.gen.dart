@@ -5,12 +5,24 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/app_icon.png
+  AssetGenImage get appIcon =>
+      const AssetGenImage('assets/images/app_icon.png');
+
+  /// File path: assets/images/app_icon_adaptive_foreground.png
+  AssetGenImage get appIconAdaptiveForeground =>
+      const AssetGenImage('assets/images/app_icon_adaptive_foreground.png');
+
+  /// File path: assets/images/app_logo.png
+  AssetGenImage get appLogo =>
+      const AssetGenImage('assets/images/app_logo.png');
 
   /// File path: assets/images/cafe.png
   AssetGenImage get cafe => const AssetGenImage('assets/images/cafe.png');
@@ -25,7 +37,8 @@ class $AssetsImagesGen {
   AssetGenImage get reel => const AssetGenImage('assets/images/reel.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [cafe, meat, noodles, reel];
+  List<AssetGenImage> get values =>
+      [appIcon, appIconAdaptiveForeground, appLogo, cafe, meat, noodles, reel];
 }
 
 class Assets {
