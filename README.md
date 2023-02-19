@@ -16,6 +16,9 @@
 ## 技術スタック
 - 状態管理
     - [flutter_riverpod v2](https://pub.dev/packages/flutter_riverpod)
+- Remote
+  - [firebase_core](https://pub.dev/packages/firebase_core)
+  - [cloud_firestore](https://pub.dev/packages/cloud_firestore)
 - ルーティング
     - [go_router](https://pub.dev/packages/go_router)
     - [go_router_builder](https://pub.dev/packages/go_router_builder)
@@ -32,13 +35,16 @@
 - サポートするプラットフォーム
     - iOS / Android
 
-
-
-
-
 ## アーキテクチャー
 - [flutter_riverpod](https://pub.dev/packages/flutter_riverpod) + [go_router](https://pub.dev/packages/go_router)
 <img src="https://user-images.githubusercontent.com/62511320/219945912-7e02716f-8e11-4ca1-9eb7-8a72a0a3491f.jpg" width=60%>
+
+### DataSourceについて
+インサイト集計データはFirestoreで保管。
+(GASで[InstagramグラフAPI](https://developers.facebook.com/docs/instagram-api)を叩いて取得したデータをFirestoreに保存している)
+
+GASプログラムについては[こちら](https://github.com/kuwabara-hirokazu/instagram_insight)
+
 
 ## CI (継続的インテグレーション)
 GitHub Actions を利用して CI を構築。
