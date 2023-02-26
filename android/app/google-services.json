@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "299133787731",
+    "project_id": "instagram-report-firebase",
+    "storage_bucket": "instagram-report-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299133787731:android:48a5a8b487e5624c1a70a6",
+        "android_client_info": {
+          "package_name": "com.example.instagram_report_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299133787731-sb3edn8afcd3d49lh1cgsrc6o4fv49vh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd8CF3mC2O07Bz_261BI-p7kIopBf0gTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "299133787731-sb3edn8afcd3d49lh1cgsrc6o4fv49vh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
